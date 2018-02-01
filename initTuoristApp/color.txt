@@ -1,0 +1,32 @@
+#616161 siva
+#263238 
+#424242
+#80DEEA
+#4DD0E1  
+#DAF7A6  
+
+#F75940 roze
+#334252
+#364857
+#3DC7BE plava
+
+#FFC8C8
+#FF9999
+#444F5A
+#3E4149
+------------------------
+#283C63 background
+
+#213151 darker
+#2f4775 lighter
+
+#19233e border blue
+#f86f81 border pink
+
+#FBE8D3 text color
+
+#F85F73 title pink
+#928A97 subtitle brown
+#F0FFF3 light
+
+http://www.colorhunt.co/
