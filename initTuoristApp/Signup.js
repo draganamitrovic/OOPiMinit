@@ -1,17 +1,41 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, StatusBar, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
+//import { Firebase } from './Firebase';
 
 export default class Signup extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      name: '',
+      address: '',
+      picture: '',
+      error: '',
+      loading: false
+    };
+  }
 
   login() {
     Actions.login();
   };
 
   register() {
-    Actions.student();
+    // Actions.student();
+    // this.setState({ error: '', loading: true });
+    // const { email, password } = this.state;
+    // Firebase.auth().createUserWithEmailAndPassword(email, password)
+    //   .then(() => {
+    //     this.setState({ error: '', loading: false });
+    //     Actions.student();
+    //   })
+    //   .catch(() => {
+    //     this.setState({ error: 'Authentication failed', loading: false })
+    //   })
+
   };
 
   render() {
@@ -23,59 +47,58 @@ export default class Signup extends React.Component {
           <Text style={styles.title}>Welcome to StudentTuorsitApp</Text>
         </View>
 
-        <View style={styles.formView}>
-          <TextInput style={styles.input}
-            underlineColorAndroid='rgba(0,0,0,0)'
-            placeholder="Name"
-            secureTextEntry={true}
-            placeholderTextColor="#31343a"
-            returnKeyType="go"
-            ref={(input) => this.name = input}
-          />
-          <TextInput style={styles.input}
-            underlineColorAndroid='rgba(0,0,0,0)'
-            placeholder="E-mail"
-            secureTextEntry={true}
-            placeholderTextColor="#31343a"
-            returnKeyType="go"
-            ref={(input) => this.email = input}
-          />
-          <TextInput style={styles.input}
-            underlineColorAndroid='rgba(0,0,0,0)'
-            placeholder="Address"
-            secureTextEntry={true}
-            placeholderTextColor="#31343a"
-            returnKeyType="go"
-            ref={(input) => this.passwadressord = input}
-          />
-          <TextInput style={styles.input}
-            underlineColorAndroid='rgba(0,0,0,0)'
-            placeholder="Picture url"
-            secureTextEntry={true}
-            placeholderTextColor="#31343a"
-            returnKeyType="go"
-            ref={(input) => this.picture = input}
-          />
-          <TextInput style={styles.input}
-            underlineColorAndroid='rgba(0,0,0,0)'
-            placeholder="Username"
-            secureTextEntry={true}
-            placeholderTextColor="#31343a"
-            returnKeyType="go"
-            ref={(input) => this.username = input}
-          />
-          <TextInput style={styles.input}
-            underlineColorAndroid='rgba(0,0,0,0)'
-            placeholder="Password"
-            secureTextEntry={true}
-            placeholderTextColor="#31343a"
-            returnKeyType="go"
-            ref={(input) => this.password = input}
-          />
-          <TouchableOpacity style={styles.register} onPress={this.register}>
-            <Text style={styles.registerText}> Register </Text>
-          </TouchableOpacity>
-        </View>
+        <ScrollView>
+
+          <View style={styles.formView}>
+            <TextInput style={styles.input}
+              underlineColorAndroid='rgba(0,0,0,0)'
+              placeholder="Name"
+              placeholderTextColor="#31343a"
+              returnKeyType="go"
+              ref={(input) => this.name = input}
+              onChangeText={name => this.setState({ name })}
+            />
+            <TextInput style={styles.input}
+              underlineColorAndroid='rgba(0,0,0,0)'
+              placeholder="E-mail"
+              placeholderTextColor="#31343a"
+              returnKeyType="go"
+              ref={(input) => this.email = input}
+              onChangeText={email => this.setState({ email })}
+            />
+            <TextInput style={styles.input}
+              underlineColorAndroid='rgba(0,0,0,0)'
+              placeholder="Address"
+              placeholderTextColor="#31343a"
+              returnKeyType="go"
+              ref={(input) => this.address = input}
+              onChangeText={address => this.setState({ address })}
+            />
+            <TextInput style={styles.input}
+              underlineColorAndroid='rgba(0,0,0,0)'
+              placeholder="Picture url"
+              placeholderTextColor="#31343a"
+              returnKeyType="go"
+              ref={(input) => this.picture = input}
+              onChangeText={picture => this.setState({ picture })}
+            />
+
+            <TextInput style={styles.input}
+              underlineColorAndroid='rgba(0,0,0,0)'
+              placeholder="Password"
+              secureTextEntry={true}
+              placeholderTextColor="#31343a"
+              returnKeyType="go"
+              ref={(input) => this.password = input}
+              secureTextEntry={true}
+              onChangeText={password => this.setState({ password })}
+            />
+            <TouchableOpacity style={styles.register} onPress={this.register}>
+              <Text style={styles.registerText}> Register </Text>
+            </TouchableOpacity>
+          </View>
+
+        </ScrollView>
 
         <View style={styles.subtitleView}>
           <Text style={styles.subtitle}>Register to continue or &nbsp;
@@ -84,6 +107,9 @@ export default class Signup extends React.Component {
 
         <View style={styles.footerView}>
           <Text style={styles.footer}>by Dragana Mitrovic</Text>
+          {this.state.loading &&
+            <Text style={styles.footer}>Loading</Text>
+          }
         </View>
 
       </View>
@@ -103,7 +129,7 @@ const styles = StyleSheet.create({
 
   titleView: {
     flex: 2,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center'
   },
 

@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 20,
         backgroundColor: '#2f4775',
         borderBottomWidth: 2,
         borderColor: '#19233e'
@@ -58,7 +57,6 @@ const styles = StyleSheet.create({
     logout: {
         flex: 1,
         width: '100%',
-        marginTop: 5,
         alignItems: 'flex-end',
         justifyContent: 'flex-start',
         backgroundColor: '#2f4775',
@@ -100,8 +98,16 @@ const styles = StyleSheet.create({
 
     body: {
         flex: 14,
-        width: '100%'
+        height: '100%',
+        width: '100%',
+        paddingLeft: 30,
+        paddingRight: 30,
+        paddingBottom: 10,
+        paddingTop: 5,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
     },
+
 
     listView: {
         flex: 8,

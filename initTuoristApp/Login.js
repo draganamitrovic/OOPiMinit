@@ -1,16 +1,38 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, StatusBar, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+//import { Firebase } from './Firebase';
+
 
 export default class Login extends React.Component {
+
+  state = {
+    email: '',
+    password: '',
+    error: '',
+    loading: false
+  };
+
 
   signup() {
     Actions.signup()
   };
 
   login() {
-    Actions.student();
+    Actions.organizator();
+
+    // let email = this.state.email;
+    // let password = this.state.password;
+
+    // firebase.auth().signInWithEmailAndPassword(email, password)
+    //   .then(() => {
+    //     this.setState({ error: '', loading: false });
+    //     Actions.student();
+    //   })
+    //   .catch(() => {
+    //     this.setState({ error: 'Authentication failed', loading: false })
+    //   })
   };
 
   render() {
@@ -26,31 +48,37 @@ export default class Login extends React.Component {
           <Text style={styles.subtitle}>Login to continue or&nbsp;
           <Text style={styles.register} onPress={this.signup}>Register</Text></Text>
         </View>
-
-        <View style={styles.formView}>
-          <TextInput style={styles.input}
-            underlineColorAndroid='rgba(0,0,0,0)'
-            placeholder="Username"
-            secureTextEntry={true}
-            placeholderTextColor="#31343a"
-            returnKeyType="go"
-            ref={(input) => this.username = input}
-          />
-          <TextInput style={styles.input}
-            underlineColorAndroid='rgba(0,0,0,0)'
-            placeholder="Password"
-            secureTextEntry={true}
-            placeholderTextColor="#31343a"
-            returnKeyType="go"
-            ref={(input) => this.password = input}
-          />
-          <TouchableOpacity style={styles.login} onPress={this.login}>
-            <Text style={styles.loginText}> Login </Text>
-          </TouchableOpacity>
-        </View>
+        
+        <ScrollView>
+          <View style={styles.formView}>
+            <TextInput style={styles.input}
+              underlineColorAndroid='rgba(0,0,0,0)'
+              placeholder="E-mail"
+              placeholderTextColor="#31343a"
+              returnKeyType="go"
+              ref={(input) => this.email = input}
+              onChangeText={email => this.setState({ email: email })}
+            />
+            <TextInput style={styles.input}
+              underlineColorAndroid='rgba(0,0,0,0)'
+              placeholder="Password"
+              secureTextEntry={true}
+              placeholderTextColor="#31343a"
+              returnKeyType="go"
+              ref={(input) => this.password = input}
+              onChangeText={password => this.setState({ password: password })}
+            />
+            <TouchableOpacity style={styles.login} onPress={this.login}>
+              <Text style={styles.loginText}> Login </Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
 
         <View style={styles.footerView}>
           <Text style={styles.footer}>by Dragana Mitrovic</Text>
+          {this.state.loading &&
+            <Text style={styles.footer}>Loading</Text>
+          }
         </View>
 
       </View>

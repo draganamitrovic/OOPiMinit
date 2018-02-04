@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react-native-fs": "^2.9.7",
+    "realm": "^2.2.6"
+  }
+}

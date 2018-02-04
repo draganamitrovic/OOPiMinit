@@ -8,7 +8,6 @@ export default class Student extends React.Component {
     destination: [],
   }
 
-
   componentWillMount() {
     this.setState({ destination: [{ name: 'destination 1', id: 1 }, { name: 'destination 2', id: 2 }, { name: 'destination', id: 3 }] })
   }
@@ -16,6 +15,8 @@ export default class Student extends React.Component {
   logout() {
     Actions.login();
   }
+
+  profile() {}
 
   listItems() {
     return this.state.destination.map(e => {
@@ -34,12 +35,14 @@ export default class Student extends React.Component {
 
 
   render() {
-
     return (
       <View style={styles.container}>
 
         <View style={styles.header}>
           <View style={styles.logout}>
+          <TouchableOpacity style={styles.profile} onPress={this.profile}>
+              <Text style={styles.logoutText}> Profile </Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.logoutbtn} onPress={this.logout}>
               <Text style={styles.logoutText}> Log out </Text>
             </TouchableOpacity>
@@ -81,7 +84,6 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 20,
     backgroundColor: '#2f4775',
     borderBottomWidth: 2,
     borderColor: '#19233e'
@@ -90,10 +92,10 @@ const styles = StyleSheet.create({
 
   logout: {
     flex: 1,
+    flexDirection: 'row',
     width: '100%',
-    marginTop: 5,
-    alignItems: 'flex-end',
-    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
     backgroundColor: '#2f4775',
   },
 
@@ -103,6 +105,17 @@ const styles = StyleSheet.create({
     width: 75,
     height: 30,
     borderBottomLeftRadius: 15,
+    backgroundColor: '#F85F73',
+    borderWidth: 2,
+    borderColor: '#f86f81'
+  },
+
+  profile: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 75,
+    height: 30,
+    borderBottomRightRadius: 15,
     backgroundColor: '#F85F73',
     borderWidth: 2,
     borderColor: '#f86f81'
