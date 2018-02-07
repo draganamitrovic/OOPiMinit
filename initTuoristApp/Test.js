@@ -1,7 +1,20 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 
-export default class User extends React.Component {
+export default class Test extends React.Component {
+
+    state = {
+        name: '',
+        address: '',
+        username: '',
+        password: '',
+        image: ''
+    }
+
+    componentWillMount() {
+        this.setState({name: this.props.name, address: this.props.address, username: this.props.username, password: this.state.password})
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -18,9 +31,18 @@ export default class User extends React.Component {
                 </View>
 
                 <View style={styles.body}>
-                    <View style={styles.listView}>
+                    <View style={{ flex: 2, width: '100%', justifyContent: 'flex-start', alignItems: 'center' }}>
+                        <Text style={{padding: 10, color: '#928A97', fontWeight: 'bold', }}></Text>
+                        <TextInput style={{width: '100%'}}
+                            underlineColorAndroid='rgba(0,0,0,0)'
+                            placeholder={this.state.name}
+                            placeholderTextColor="#928A97"
+                            returnKeyType="go"
+                            ref={(input) => this.name = input}
+                            onChangeText={name => this.setState({ name: name })}
+                        />
                     </View>
-                    <View style={styles.listViewBtn}>
+                    <View style={{ flex: 1, width: '100%', justifyContent: 'flex-start', alignItems: 'center' }}>
                     </View>
                 </View>
 
@@ -106,22 +128,9 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
+        flexDirection: 'row'
     },
 
-
-    listView: {
-        flex: 8,
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-    listViewBtn: {
-        flex: 2,
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
 
     footer: {
         flex: 0.5,

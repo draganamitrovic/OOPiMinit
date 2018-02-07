@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, StatusBar, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, StatusBar, ScrollView, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 //import { Firebase } from './Firebase';
@@ -16,11 +16,12 @@ export default class Login extends React.Component {
 
 
   signup() {
-    Actions.signup()
+    //Actions.signup()
+    Actions.ponuda({Pname: 'Paris for 2 days', Pdate: '02.01.2018.-04.01.2018.', Porganisator: 'Organisator', Pdesc: 'On 02.01. at 05:00h we will go to Paris and be back by 04.01. 22:00h. The trips lasts for three days and two nights. Price includes two nights in hotel with breakfast. ', Pimg: 'http://www.iconhot.com/icon/png/file-icons-vs-2/256/jpg-2.png'})
   };
 
   login() {
-    Actions.organizator();
+    Actions.user({Uname: 'hmgc', Uaddress: 'admin address', Uusername: 'admin', Upassword: 'admin', Uimg:'http://www.cmcstir.org/wp-content/uploads/2013/07/img08.jpg'});
 
     // let email = this.state.email;
     // let password = this.state.password;
@@ -54,7 +55,7 @@ export default class Login extends React.Component {
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="E-mail"
-              placeholderTextColor="#31343a"
+              placeholderTextColor="#928A97"
               returnKeyType="go"
               ref={(input) => this.email = input}
               onChangeText={email => this.setState({ email: email })}
@@ -63,7 +64,7 @@ export default class Login extends React.Component {
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Password"
               secureTextEntry={true}
-              placeholderTextColor="#31343a"
+              placeholderTextColor="#928A97"
               returnKeyType="go"
               ref={(input) => this.password = input}
               onChangeText={password => this.setState({ password: password })}

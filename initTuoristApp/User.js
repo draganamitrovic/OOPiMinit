@@ -1,7 +1,20 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, TextInput, Image, ScrollView } from 'react-native';
 
 export default class User extends React.Component {
+
+    state = {
+        Uname: '',
+        Uaddress: '',
+        Uusername: '',
+        Upassword: '',
+        Uimg: ''
+    }
+
+    componentDidMount() {
+        this.setState({ Uname: this.props.Uname, Uaddress: this.props.Uaddress, Uusername: this.props.Uusername, Upassword: this.props.Upassword, Uimg: this.props.Uimg })
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -18,10 +31,68 @@ export default class User extends React.Component {
                 </View>
 
                 <View style={styles.body}>
-                    <View style={styles.listView}>
-                    </View>
-                    <View style={styles.listViewBtn}>
-                    </View>
+                    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ width: '100%', alignItems: 'center' }} >
+                        <View style={{ width: '100%', justifyContent: 'flex-start', alignItems: 'center', paddingTop: 10 }}>
+                            <Image
+                                style={{ width: 150, height: 150, borderRadius: 5, margin: 10 }}
+                                source={{ uri: this.props.Uimg }}
+                            />
+
+                        </View>
+
+                        <View style={{ width: '100%', justifyContent: 'flex-start', alignItems: 'center' }}>
+
+                            <Text style={{ padding: 10, color: '#F0FFF3', fontWeight: 'bold', width: '100%', textAlign: 'center' }}>Your Picture Url</Text>
+                            <TextInput style={styles.inputUri}
+                                underlineColorAndroid='rgba(0,0,0,0)'
+                                placeholder={this.props.Uimg}
+                                placeholderTextColor="#928A97"
+                                returnKeyType="go"
+                                ref={(input) => this.Uimg = input}
+                                onChangeText={Uimg => this.setState({ Uimg: Uimg })}
+                            />
+                            <Text style={{ padding: 10, color: '#F0FFF3', fontWeight: 'bold', textAlign: 'center' }}>Your Name</Text>
+                            <TextInput style={styles.input}
+                                underlineColorAndroid='rgba(0,0,0,0)'
+                                placeholder={this.props.Uname}
+                                placeholderTextColor="#928A97"
+                                returnKeyType="go"
+                                ref={(input) => this.Uname = input}
+                                onChangeText={Uname => this.setState({ Uname: Uname })}
+                            />
+                            <Text style={{ padding: 10, color: '#F0FFF3', fontWeight: 'bold', textAlign: 'center' }}>Your Address</Text>
+                            <TextInput style={styles.input}
+                                underlineColorAndroid='rgba(0,0,0,0)'
+                                placeholder={this.props.Uaddress}
+                                placeholderTextColor="#928A97"
+                                returnKeyType="go"
+                                ref={(input) => this.Uaddress = input}
+                                onChangeText={Uaddress => this.setState({ Uaddress: Uaddress })}
+                            />
+                            <Text style={{ padding: 10, color: '#F0FFF3', fontWeight: 'bold', textAlign: 'center' }}>Your Username</Text>
+                            <TextInput style={styles.input}
+                                underlineColorAndroid='rgba(0,0,0,0)'
+                                placeholder={this.props.Uusername}
+                                placeholderTextColor="#928A97"
+                                returnKeyType="go"
+                                ref={(input) => this.Uusername = input}
+                                onChangeText={Uusername => this.setState({ Uusername: Uusername })}
+                            />
+                            <Text style={{ padding: 10, color: '#F0FFF3', fontWeight: 'bold', textAlign: 'center' }}>Your Password</Text>
+                            <TextInput style={styles.input}
+                                underlineColorAndroid='rgba(0,0,0,0)'
+                                placeholder={this.props.Upassword}
+                                placeholderTextColor="#928A97"
+                                returnKeyType="go"
+                                ref={(input) => this.Upassword = input}
+                                onChangeText={Upassword => this.setState({ Upassword: Upassword })}
+                            />
+                            <TouchableOpacity style={styles.submitBtn} onPress={this.login}>
+                                <Text style={styles.submitText}> Submit Changes </Text>
+                            </TouchableOpacity>
+
+                        </View>
+                    </ScrollView>
                 </View>
 
                 <View style={styles.footer}>
@@ -100,28 +171,14 @@ const styles = StyleSheet.create({
         flex: 14,
         height: '100%',
         width: '100%',
-        paddingLeft: 30,
-        paddingRight: 30,
+        paddingLeft: 10,
+        paddingRight: 10,
         paddingBottom: 10,
         paddingTop: 5,
         justifyContent: 'flex-start',
-        alignItems: 'flex-start',
+        alignItems: 'center',
     },
 
-
-    listView: {
-        flex: 8,
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-    listViewBtn: {
-        flex: 2,
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
 
     footer: {
         flex: 0.5,
@@ -140,4 +197,41 @@ const styles = StyleSheet.create({
         fontSize: 12
     },
 
+    input: {
+        width: 200,
+        height: 25,
+        marginBottom: 5,
+        backgroundColor: '#F0FFF3',
+        textAlign: 'left',
+        padding: 0,
+        paddingLeft: 10,
+
+    },
+
+    submitBtn: {
+        width: 150,
+        height: 30,
+        marginTop: 15,
+        backgroundColor: '#F85F73',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 7,
+    },
+
+    submitText: {
+        color: '#283C63',
+        textAlign: 'center',
+        fontWeight: 'bold'
+    },
+
+    inputUri: {
+        width: 270,
+        height: 25,
+        marginBottom: 5,
+        backgroundColor: '#F0FFF3',
+        textAlign: 'left',
+        padding: 0,
+        paddingLeft: 10,
+
+    },
 })

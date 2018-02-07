@@ -9,12 +9,11 @@ export default class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
       password: '',
       name: '',
       address: '',
       picture: '',
-      error: '',
+      username: '',
       loading: false
     };
   }
@@ -53,23 +52,23 @@ export default class Signup extends React.Component {
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Name"
-              placeholderTextColor="#31343a"
+              placeholderTextColor="#928A97"
               returnKeyType="go"
               ref={(input) => this.name = input}
               onChangeText={name => this.setState({ name })}
             />
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
-              placeholder="E-mail"
-              placeholderTextColor="#31343a"
+              placeholder="Username"
+              placeholderTextColor="#928A97"
               returnKeyType="go"
-              ref={(input) => this.email = input}
-              onChangeText={email => this.setState({ email })}
+              ref={(input) => this.username = input}
+              onChangeText={username => this.setState({ username })}
             />
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Address"
-              placeholderTextColor="#31343a"
+              placeholderTextColor="#928A97"
               returnKeyType="go"
               ref={(input) => this.address = input}
               onChangeText={address => this.setState({ address })}
@@ -77,7 +76,7 @@ export default class Signup extends React.Component {
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Picture url"
-              placeholderTextColor="#31343a"
+              placeholderTextColor="#928A97"
               returnKeyType="go"
               ref={(input) => this.picture = input}
               onChangeText={picture => this.setState({ picture })}
@@ -87,7 +86,7 @@ export default class Signup extends React.Component {
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Password"
               secureTextEntry={true}
-              placeholderTextColor="#31343a"
+              placeholderTextColor="#928A97"
               returnKeyType="go"
               ref={(input) => this.password = input}
               secureTextEntry={true}
