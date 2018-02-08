@@ -8,11 +8,12 @@ export default class Ponuda extends React.Component {
         Pdesc: '',
         Pimg: '',
         Pdate: '',
-        Porganisator: ''
+        Porganisator: '',
+        Pprice: ''
     }
 
     componentDidMount() {
-        this.setState({ Pname: this.props.Pname, Pdate: this.props.Pdate, Porganisator: this.props.Porganisator, Pdesc: this.props.Pdesc, Pimg: this.props.Pimg })
+        this.setState({ Pname: this.props.Pname, Pdate: this.props.Pdate, Pprice: this.props.Pprice, Porganisator: this.props.Porganisator, Pdesc: this.props.Pdesc, Pimg: this.props.Pimg })
     }
 
     render() {
@@ -46,7 +47,7 @@ export default class Ponuda extends React.Component {
                             <TextInput style={styles.inputUri}
                                 underlineColorAndroid='rgba(0,0,0,0)'
                                 placeholder={this.props.Pimg}
-                                placeholderTextColor="#928A97"
+                                placeholderTextColor="#2f4775"
                                 returnKeyType="go"
                                 ref={(input) => this.Pimg = input}
                                 onChangeText={Pimg => this.setState({ Pimg: Pimg })}
@@ -55,7 +56,7 @@ export default class Ponuda extends React.Component {
                             <TextInput style={styles.input}
                                 underlineColorAndroid='rgba(0,0,0,0)'
                                 placeholder={this.props.Pname}
-                                placeholderTextColor="#928A97"
+                                placeholderTextColor="#2f4775"
                                 returnKeyType="go"
                                 ref={(input) => this.Pname = input}
                                 onChangeText={Pname => this.setState({ Pname: Pname })}
@@ -64,16 +65,25 @@ export default class Ponuda extends React.Component {
                             <TextInput style={styles.input}
                                 underlineColorAndroid='rgba(0,0,0,0)'
                                 placeholder={this.props.Pdate}
-                                placeholderTextColor="#928A97"
+                                placeholderTextColor="#2f4775"
                                 returnKeyType="go"
                                 ref={(input) => this.Pdate = input}
                                 onChangeText={Pdate => this.setState({ Pdate: Pdate })}
+                            />
+                             <Text style={{ padding: 10, color: '#F0FFF3', fontWeight: 'bold', textAlign: 'center' }}>Journey Price</Text>
+                            <TextInput style={styles.input}
+                                underlineColorAndroid='rgba(0,0,0,0)'
+                                placeholder={this.props.Pprice}
+                                placeholderTextColor="#2f4775"
+                                returnKeyType="go"
+                                ref={(input) => this.Pprice = input}
+                                onChangeText={Pprice => this.setState({ Pprice: Pprice })}
                             />
                             <Text style={{ padding: 10, color: '#F0FFF3', fontWeight: 'bold', textAlign: 'center' }}>Organisator of Journey</Text>
                             <TextInput style={styles.input}
                                 underlineColorAndroid='rgba(0,0,0,0)'
                                 placeholder={this.props.Porganisator}
-                                placeholderTextColor="#928A97"
+                                placeholderTextColor="#2f4775"
                                 returnKeyType="go"
                                 ref={(input) => this.Porganisator = input}
                                 onChangeText={Porganisator => this.setState({ Porganisator: Porganisator })}
@@ -82,7 +92,7 @@ export default class Ponuda extends React.Component {
                             <TextInput style={styles.inputDesc}
                                 underlineColorAndroid='rgba(0,0,0,0)'
                                 placeholder={this.props.Pdesc}
-                                placeholderTextColor="#928A97"
+                                placeholderTextColor="#2f4775"
                                 returnKeyType="go"
                                 ref={(input) => this.Pdesc = input}
                                 onChangeText={Pdesc => this.setState({ Pdesc: Pdesc })}

@@ -52,7 +52,7 @@ export default class Signup extends React.Component {
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Name"
-              placeholderTextColor="#928A97"
+              placeholderTextColor="#2f4775"
               returnKeyType="go"
               ref={(input) => this.name = input}
               onChangeText={name => this.setState({ name })}
@@ -60,7 +60,7 @@ export default class Signup extends React.Component {
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Username"
-              placeholderTextColor="#928A97"
+              placeholderTextColor="#2f4775"
               returnKeyType="go"
               ref={(input) => this.username = input}
               onChangeText={username => this.setState({ username })}
@@ -68,7 +68,7 @@ export default class Signup extends React.Component {
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Address"
-              placeholderTextColor="#928A97"
+              placeholderTextColor="#2f4775"
               returnKeyType="go"
               ref={(input) => this.address = input}
               onChangeText={address => this.setState({ address })}
@@ -76,7 +76,7 @@ export default class Signup extends React.Component {
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Picture url"
-              placeholderTextColor="#928A97"
+              placeholderTextColor="#2f4775"
               returnKeyType="go"
               ref={(input) => this.picture = input}
               onChangeText={picture => this.setState({ picture })}
@@ -86,7 +86,7 @@ export default class Signup extends React.Component {
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Password"
               secureTextEntry={true}
-              placeholderTextColor="#928A97"
+              placeholderTextColor="#2f4775"
               returnKeyType="go"
               ref={(input) => this.password = input}
               secureTextEntry={true}

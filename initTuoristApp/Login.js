@@ -17,7 +17,8 @@ export default class Login extends React.Component {
 
   signup() {
     //Actions.signup()
-    Actions.ponuda({Pname: 'Paris for 2 days', Pdate: '02.01.2018.-04.01.2018.', Porganisator: 'Organisator', Pdesc: 'On 02.01. at 05:00h we will go to Paris and be back by 04.01. 22:00h. The trips lasts for three days and two nights. Price includes two nights in hotel with breakfast. ', Pimg: 'http://www.iconhot.com/icon/png/file-icons-vs-2/256/jpg-2.png'})
+    //Actions.ponuda({Pname: 'Paris for 2 days', Pdate: '02.01.2018.-04.01.2018.', Porganisator: 'Organisator', Pprice: '1000', Pdesc: 'On 02.01. at 05:00h we will go to Paris and be back by 04.01. 22:00h. The trips lasts for three days and two nights. Price includes two nights in hotel with breakfast. ', Pimg: 'http://www.iconhot.com/icon/png/file-icons-vs-2/256/jpg-2.png'})
+    Actions.ponuda({Pname: global.trip[5].name, Pdate: '', Porganisator: '', Pprice: '', Pdesc: '', Pimg: 'http://www.iconhot.com/icon/png/file-icons-vs-2/256/jpg-2.png'})
   };
 
   login() {
@@ -54,17 +55,17 @@ export default class Login extends React.Component {
           <View style={styles.formView}>
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
-              placeholder="E-mail"
-              placeholderTextColor="#928A97"
+              placeholder="Username"
+              placeholderTextColor="#2f4775"
               returnKeyType="go"
-              ref={(input) => this.email = input}
-              onChangeText={email => this.setState({ email: email })}
+              ref={(input) => this.username = input}
+              onChangeText={username => this.setState({ username: username })}
             />
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Password"
               secureTextEntry={true}
-              placeholderTextColor="#928A97"
+              placeholderTextColor="#2f4775"
               returnKeyType="go"
               ref={(input) => this.password = input}
               onChangeText={password => this.setState({ password: password })}

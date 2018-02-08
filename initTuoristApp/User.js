@@ -46,7 +46,7 @@ export default class User extends React.Component {
                             <TextInput style={styles.inputUri}
                                 underlineColorAndroid='rgba(0,0,0,0)'
                                 placeholder={this.props.Uimg}
-                                placeholderTextColor="#928A97"
+                                placeholderTextColor="#2f4775"
                                 returnKeyType="go"
                                 ref={(input) => this.Uimg = input}
                                 onChangeText={Uimg => this.setState({ Uimg: Uimg })}
@@ -55,7 +55,7 @@ export default class User extends React.Component {
                             <TextInput style={styles.input}
                                 underlineColorAndroid='rgba(0,0,0,0)'
                                 placeholder={this.props.Uname}
-                                placeholderTextColor="#928A97"
+                                placeholderTextColor="#2f4775"
                                 returnKeyType="go"
                                 ref={(input) => this.Uname = input}
                                 onChangeText={Uname => this.setState({ Uname: Uname })}
@@ -64,7 +64,7 @@ export default class User extends React.Component {
                             <TextInput style={styles.input}
                                 underlineColorAndroid='rgba(0,0,0,0)'
                                 placeholder={this.props.Uaddress}
-                                placeholderTextColor="#928A97"
+                                placeholderTextColor="#2f4775"
                                 returnKeyType="go"
                                 ref={(input) => this.Uaddress = input}
                                 onChangeText={Uaddress => this.setState({ Uaddress: Uaddress })}
@@ -73,7 +73,7 @@ export default class User extends React.Component {
                             <TextInput style={styles.input}
                                 underlineColorAndroid='rgba(0,0,0,0)'
                                 placeholder={this.props.Uusername}
-                                placeholderTextColor="#928A97"
+                                placeholderTextColor="#2f4775"
                                 returnKeyType="go"
                                 ref={(input) => this.Uusername = input}
                                 onChangeText={Uusername => this.setState({ Uusername: Uusername })}
@@ -82,7 +82,7 @@ export default class User extends React.Component {
                             <TextInput style={styles.input}
                                 underlineColorAndroid='rgba(0,0,0,0)'
                                 placeholder={this.props.Upassword}
-                                placeholderTextColor="#928A97"
+                                placeholderTextColor="#2f4775"
                                 returnKeyType="go"
                                 ref={(input) => this.Upassword = input}
                                 onChangeText={Upassword => this.setState({ Upassword: Upassword })}

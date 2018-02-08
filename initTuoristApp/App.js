@@ -7,9 +7,35 @@ import Realm from 'realm';
 
 export default class App extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = { realm: null };
+  // constructor(props) {
+  //   super(props);
+  //   this.state = { realm: null };
+  // }
+
+  componentWillMount() {
+    global.user = [
+      {img: '', name: 'Dragana Mitrovic', address: '', username: 'admin', password: 'admin', type: 'admin'},
+      {img: '', name: 'Justine Henderson', address: 'Greenhill Rd., Saint Ives', username: 'organisator', password: 'organisator', type: 'organisator'},
+      {img: '', name: 'Emmit Boyer', address: 'Erica Rd., Kilmancom', username: 'emmit', password: '123', type: 'organisator'},
+      {img: '', name: 'Lia Shelton', address: 'Ripple Streat, Oscoda', username: 'lia', password: '456', type: 'organisator'},
+      {img: '', name: 'Marcus Dalton', address: 'Shireley Ave., West Chicago', username: 'student', password: '', type: 'student'},
+      {img: '', name: 'Thalia Cobb', address: 'Goldfield Rd., Honolulu', username: 'thalia', password: '123', type: 'student'},
+      {img: '', name: 'Adrian Black', address: 'Livingstone Rd., Gilingham', username: 'adrian', password: '123', type: 'student'},
+      {img: '', name: 'Teagan Wise', address: 'Kent Ave., Portsmouth', username: 'wise', password: '159', type: 'student'},
+      {img: '', name: 'Theo Baker', address: 'Hillside, Ellesmere Port', username: 'theo', password: '123', type: 'student'},
+      {img: '', name: 'Oscar Wood', address: 'White Rose Ln., Working', username: 'oscar', password: '123456', type: 'student'},
+       // {img: '', name: 'Yoongi Min', address: 'Deagu, Seoul', username: '', password: '', type: 'student'},
+    ];
+
+    global.trip = [
+      {name: 'Paris for 2 days', date: '02.01.2018.-04.01.2018.', organisator: 'Organisator', price: '1000', desc: 'On 02.01. at 05:00h we will go to Paris and be back by 04.01. 22:00h. The trips lasts for three days and two nights. Price includes two nights in hotel with breakfast. ', img: 'http://www.iconhot.com/icon/png/file-icons-vs-2/256/jpg-2.png'},
+      {img: '', name: 'Dubai - 10 days', date: '5.5.2018-15.5.2018.', price: '9200', organisator: 'organisator', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In scelerisque tortor vel tincidunt tempus. Vivamus at molestie enim. Vivamus eleifend tempor nisl a laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras luctus lobortis quam eget volutpat. Sed a vulputate sapien.' },
+      {img: '', name: 'Tailand - 8 days', date: '1.6.2018-9.6.2018', price: '6500', organisator: 'emmit', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In scelerisque tortor vel tincidunt tempus. Vivamus at molestie enim. Vivamus eleifend tempor nisl a laoreet. Magnis dis parturient montes, nascetur ridiculus mus. Cras luctus lobortis quam eget volutpat. Sed a vulputate sapien.', },
+      {img: '', name: 'Rome - 5 days', date: '15.9.2018-20.9.2018', price: '3400', organisator: 'lia', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In scelerisque tortor vel tincidunt tempus. Vivamus at molestie enim. Vivamus eleifend tempor nisl a laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed a vulputate sapien.', },
+      {img: '', name: 'Barselona - 6 days', date: '2.2.2018-8.2.2018', price: '4500', organisator: 'organisator', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In scelerisque tortor vel tincidunt tempus. Vivamus at molestie enim. Vivamus eleifend tempor nisl a laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras luctus lobortis quam eget volutpat. Sed a vulputate sapien.', },
+      {img: '', name: 'Lisabon - 7 days', date: '1.7.2018-8.7.2018', price: '6800', organisator: 'lia', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In scelerisque tortor vel tincidunt tempus. Vivamus at molestie enim. Vivamus eleifend tempor nisl a laoreet. Orci varius natoque penatibus et magnis dis parturient Cras luctus lobortis quam eget volutpat. Sed a vulputate sapien.', },
+      {img: '', name: 'Egypt - 14 days', date: '15.9.2018-29.9.2018', price: '12400', organisator: 'lia', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In scelerisque tortor vel tincidunt tempus. Vivamus at molestie enim. Vivamus eleifend tempor nisl a laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras luctus lobortis quam eget volutpat.', },
+    ]
   }
 
   // componentWillMount(){
