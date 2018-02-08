@@ -3,22 +3,13 @@ import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-nati
 import { Actions } from 'react-native-router-flux';
 
 export default class Admin extends React.Component {
-    state = {
-        destination: [],
-        students: [],
-        organisators: [],
-    }
-
-    componentWillMount() {
-        this.setState({ destination: [{ name: 'destination 1', id: 1 }, { name: 'destination 2', id: 2 }, { name: 'destination', id: 3 }], students: [{ username: 'student 1', id: 1 }, { username: 'student 2', id: 2 }, { username: 'student', id: 3 }], organisators: [{ username: 'organisator 1', id: 1 }, { username: 'organisator 2', id: 2 }, { username: 'organisator', id: 3 }] })
-    }
-
+   
     logout() {
         Actions.login();
     }
 
     listItems() {
-        return this.state.destination.map(e => {
+        return global.trip.map(e => {
             return <View style={{ flex: 1, flexDirection: 'row', width: '100%', height: 30, borderBottomWidth: 1, borderBottomColor: '#928A97' }}>
                 <Text style={styles.destText}>{e.name}</Text>
                 <TouchableOpacity style={styles.delete} onPress={this.delete}>
@@ -29,24 +20,28 @@ export default class Admin extends React.Component {
     }
 
     listStudents() {
-        return this.state.students.map(e => {
+        return global.user.map(e => {
+            if(e.type=='student'){
             return <View style={{ flex: 1, flexDirection: 'row', width: '100%', height: 30, borderBottomWidth: 1, borderBottomColor: '#928A97' }}>
-                <Text style={styles.destText}>{e.username}</Text>
+                <Text style={styles.destText}>{e.name}</Text>
                 <TouchableOpacity style={styles.delete} onPress={this.delete}>
                     <Text style={styles.deleteText}> DELETE </Text>
                 </TouchableOpacity>
             </View>
+            }
         })
     }
 
     listOrganisators() {
-        return this.state.organisators.map(e => {
+        return global.user.map(e => {
+            if(e.type=='organisator'){
             return <View style={{ flex: 1, flexDirection: 'row', width: '100%', height: 30, borderBottomWidth: 1, borderBottomColor: '#928A97' }}>
-                <Text style={styles.destText}>{e.username}</Text>
+                <Text style={styles.destText}>{e.name}</Text>
                 <TouchableOpacity style={styles.delete} onPress={this.delete}>
                     <Text style={styles.deleteText}> DELETE </Text>
                 </TouchableOpacity>
             </View>
+            }
         })
     }
 

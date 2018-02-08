@@ -19,7 +19,7 @@ export default class Routes extends React.Component {
           <Stack>
             <Scene key="login" component={Login} hideNavBar={true} initial={true}/>
             <Scene key="signup" component={Signup} title="Register" hideNavBar={true} />
-            <Scene key="organizator" component={Organizator} title="Organizator" hideNavBar={true} />
+            <Scene key="organisator" component={Organizator} title="Organizator" hideNavBar={true} />
             <Scene key="student" component={Student} title="Student" hideNavBar={true} />
             <Scene key="admin" component={Admin} title="Admin" hideNavBar={true} />
             <Scene key="ponuda" component={Ponuda} title="Ponuda" hideNavBar={true} />

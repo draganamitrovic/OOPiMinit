@@ -1,46 +1,102 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, StatusBar, ScrollView, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, StatusBar, ScrollView, Image, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 //import { Firebase } from './Firebase';
-
+import { Dialog } from 'react-native-simple-dialogs';
 
 export default class Login extends React.Component {
 
   state = {
-    email: '',
+    username: '',
     password: '',
     error: '',
-    loading: false
+    loading: false,
+    dialogVisible: false
   };
 
 
   signup() {
-    //Actions.signup()
+    Actions.signup()
     //Actions.ponuda({Pname: 'Paris for 2 days', Pdate: '02.01.2018.-04.01.2018.', Porganisator: 'Organisator', Pprice: '1000', Pdesc: 'On 02.01. at 05:00h we will go to Paris and be back by 04.01. 22:00h. The trips lasts for three days and two nights. Price includes two nights in hotel with breakfast. ', Pimg: 'http://www.iconhot.com/icon/png/file-icons-vs-2/256/jpg-2.png'})
-    Actions.ponuda({Pname: global.trip[5].name, Pdate: '', Porganisator: '', Pprice: '', Pdesc: '', Pimg: 'http://www.iconhot.com/icon/png/file-icons-vs-2/256/jpg-2.png'})
+    // Actions.ponuda({ Pname: global.trip[5].name, Pdate: '', Porganisator: '', Pprice: '', Pdesc: '', Pimg: 'http://www.iconhot.com/icon/png/file-icons-vs-2/256/jpg-2.png' })
   };
 
-  login() {
-    Actions.user({Uname: 'hmgc', Uaddress: 'admin address', Uusername: 'admin', Upassword: 'admin', Uimg:'http://www.cmcstir.org/wp-content/uploads/2013/07/img08.jpg'});
+  login = () => {
 
-    // let email = this.state.email;
-    // let password = this.state.password;
+    for (let i = 0; i < global.user.length; i++) {
 
-    // firebase.auth().signInWithEmailAndPassword(email, password)
-    //   .then(() => {
-    //     this.setState({ error: '', loading: false });
-    //     Actions.student();
-    //   })
-    //   .catch(() => {
-    //     this.setState({ error: 'Authentication failed', loading: false })
-    //   })
+      if (global.user[i].username === this.state.username && global.user[i].password == this.state.password) {
+        //tacan password, prebaci na stanicu
+        switch (global.user[i].type) {
+          case 'admin':
+            return Actions.admin()
+            break;
+          case 'organisator':
+            return Actions.organisator()
+            break;
+          case 'student':
+            return Actions.student()
+            break;
+        }
+      }
+    }
+   Alert.alert('You have entered an invalid username or password')
   };
+
+    // global.user.map((element, i)=>{
+    //   if (element.username === this.state.username) {
+    //     //tacan username, proveri sifru
+    //     if (element.password == this.state.password) {
+    //       //tacan password, prebaci na stanicu
+    //       switch (element.type) {
+    //         case 'admin':
+    //           return Actions.admin()
+    //           break;
+    //         case 'organisator':
+    //           Actions.organisator()
+    //           break;
+    //         case 'student':
+    //           Actions.student()
+    //           break;
+    //       }
+    //     } else {
+    //       //netacan password
+    //       Alert.alert('You submitted wrong password.')
+    //       break;
+    //     }
+    //   } else {
+    //     //netacan username
+    //     // You are not registred or you submitted wrong username and password
+    //     Alert.alert('username '+this.state.username+element.username)
+    //     break;
+    //   }
+    // })
+
+
+
+
+  // Actions.user({Uname: 'hmgc', Uaddress: 'admin address', Uusername: 'admin', Upassword: 'admin', Uimg:'http://www.cmcstir.org/wp-content/uploads/2013/07/img08.jpg'});
+
+  // let username = this.state.username;
+  // let password = this.state.password;
+
+  // firebase.auth().signInWithEmailAndPassword(email, password)
+  //   .then(() => {
+  //     this.setState({ error: '', loading: false });
+  //     Actions.student();
+  //   })
+  //   .catch(() => {
+  //     this.setState({ error: 'Authentication failed', loading: false })
+  //   })
+
 
   render() {
     return (
 
       <View style={styles.container}>
+
+
 
         <View style={styles.titleView}>
           <Text style={styles.title}>Welcome to StudentTuorsitApp</Text>
@@ -50,7 +106,7 @@ export default class Login extends React.Component {
           <Text style={styles.subtitle}>Login to continue or&nbsp;
           <Text style={styles.register} onPress={this.signup}>Register</Text></Text>
         </View>
-        
+
         <ScrollView>
           <View style={styles.formView}>
             <TextInput style={styles.input}
