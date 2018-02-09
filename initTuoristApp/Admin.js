@@ -1,18 +1,52 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import TabNavigator from 'react-native-tab-navigator';
 
 export default class Admin extends React.Component {
-   
+
+    state = {
+        selectedTab: 'managers',
+        offers: [],
+        users: [],
+    }
+
+    componentWillMount() {
+        this.setState({ offers: global.trip, users: global.user })
+    }
+
     logout() {
         Actions.login();
     }
 
+    deleteOffer = (name) => {
+
+        let deletedOffer = this.state.offers.filter(function (el) {
+            return el.name != name
+        });
+        this.setState({ offers: deletedOffer })
+
+    }
+
+    deletedUser = (name) => {
+
+
+        let deletedUser = this.state.users.filter(function (el) {
+            return el.name != name
+        });
+        this.setState({ users: deletedUser })
+
+    }
+
+    createUser = () => {
+        //create user using states
+    }
+
     listItems() {
-        return global.trip.map(e => {
-            return <View style={{ flex: 1, flexDirection: 'row', width: '100%', height: 30, borderBottomWidth: 1, borderBottomColor: '#928A97' }}>
+        return this.state.offers.map((e, i) => {
+            return <View key={i} style={{ flex: 1, flexDirection: 'row', width: '100%', height: 30, borderBottomWidth: 1, borderBottomColor: '#928A97' }}>
                 <Text style={styles.destText}>{e.name}</Text>
-                <TouchableOpacity style={styles.delete} onPress={this.delete}>
+                <TouchableOpacity style={styles.delete} onPress={() => { this.deleteOffer(e.name) }}>
                     <Text style={styles.deleteText}> DELETE </Text>
                 </TouchableOpacity>
             </View>
@@ -20,27 +54,27 @@ export default class Admin extends React.Component {
     }
 
     listStudents() {
-        return global.user.map(e => {
-            if(e.type=='student'){
-            return <View style={{ flex: 1, flexDirection: 'row', width: '100%', height: 30, borderBottomWidth: 1, borderBottomColor: '#928A97' }}>
-                <Text style={styles.destText}>{e.name}</Text>
-                <TouchableOpacity style={styles.delete} onPress={this.delete}>
-                    <Text style={styles.deleteText}> DELETE </Text>
-                </TouchableOpacity>
-            </View>
+        return this.state.users.map((e, i) => {
+            if (e.type == 'student') {
+                return <View key={i} style={{ flex: 1, flexDirection: 'row', width: '100%', height: 30, borderBottomWidth: 1, borderBottomColor: '#928A97' }}>
+                    <Text style={styles.destText}>{e.name}</Text>
+                    <TouchableOpacity style={styles.delete} onPress={() => { this.deletedUser(e.name) }}>
+                        <Text style={styles.deleteText}> DELETE </Text>
+                    </TouchableOpacity>
+                </View>
             }
         })
     }
 
     listOrganisators() {
-        return global.user.map(e => {
-            if(e.type=='organisator'){
-            return <View style={{ flex: 1, flexDirection: 'row', width: '100%', height: 30, borderBottomWidth: 1, borderBottomColor: '#928A97' }}>
-                <Text style={styles.destText}>{e.name}</Text>
-                <TouchableOpacity style={styles.delete} onPress={this.delete}>
-                    <Text style={styles.deleteText}> DELETE </Text>
-                </TouchableOpacity>
-            </View>
+        return this.state.users.map((e, i) => {
+            if (e.type == 'organisator') {
+                return <View key={i} style={{ flex: 1, flexDirection: 'row', width: '100%', height: 30, borderBottomWidth: 1, borderBottomColor: '#928A97' }}>
+                    <Text style={styles.destText}>{e.name}</Text>
+                    <TouchableOpacity style={styles.delete} onPress={() => { this.deletedUser(e.name) }}>
+                        <Text style={styles.deleteText}> DELETE </Text>
+                    </TouchableOpacity>
+                </View>
             }
         })
     }
@@ -62,38 +96,67 @@ export default class Admin extends React.Component {
                     </View>
                 </View>
 
+                <View style={styles.tabView} >
+
+                    <TouchableOpacity style={styles.tab} onPress={() => this.setState({ selectedTab: 'managers' })}>
+                        <Image source={this.state.selectedTab == 'managers' ? require('./ico/manager.png') : require('./ico/managerOff.png')} />
+
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.tab} onPress={() => this.setState({ selectedTab: 'students' })}>
+                        <Image source={this.state.selectedTab == 'students' ? require('./ico/student.png') : require('./ico/studentOff.png')} />
+
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.tab} onPress={() => this.setState({ selectedTab: 'offers' })}>
+                        <Image source={this.state.selectedTab == 'offers' ? require('./ico/tour.png') : require('./ico/tourOff.png')} />
+
+                    </TouchableOpacity>
+
+                </View>
+
+
                 <View style={styles.body}>
-                    <View style={{ flex: 1, width: '100%', height: '100%', margin: 10 }}>
-                        <Text style={styles.listTitle}>Trips:</Text>
-                        <ScrollView>
 
-                            {this.listItems()}
 
-                        </ScrollView>
+                    {this.state.selectedTab == 'offers' &&
+                        <View style={{ flex: 1, width: '100%', height: '100%', margin: 10 }}>
+                            <Text style={styles.listTitle}>List of tourist offers:</Text>
+                            <ScrollView>
 
-                    </View>
-                    <View style={{ flex: 1, width: '100%', height: '100%', margin: 7 }}>
-                        <Text style={styles.listTitle}>Students:</Text>
-                        <ScrollView>
+                                {this.listItems()}
 
-                            {this.listStudents()}
+                            </ScrollView>
 
-                        </ScrollView>
-                    </View>
-
-                    <View style={{ flex: 1, width: '100%', height: '100%', margin: 7 }}>
-                        <Text style={styles.listTitle}>Organisators:</Text>
-                        <ScrollView>
-
-                            {this.listOrganisators()}
-
-                        </ScrollView>
-                        <View style={styles.newbtn}>
-                            <TouchableOpacity style={styles.createnew} onPress={this.logout}>
-                                <Text style={styles.createnewtext}> Create New </Text>
-                            </TouchableOpacity>
                         </View>
-                    </View>
+                    }
+
+                    {this.state.selectedTab == 'students' &&
+
+                        <View style={{ flex: 1, width: '100%', height: '100%', margin: 7 }}>
+                            <Text style={styles.listTitle}>List of Registreted Students:</Text>
+                            <ScrollView>
+
+                                {this.listStudents()}
+
+                            </ScrollView>
+                        </View>
+                    }
+
+                    {this.state.selectedTab == 'managers' &&
+                        <View style={{ flex: 1, width: '100%', height: '100%', margin: 7 }}>
+                            <Text style={styles.listTitle}>List of Tour Managers:</Text>
+                            <ScrollView>
+
+                                {this.listOrganisators()}
+
+                            </ScrollView>
+                            <View style={styles.newbtn}>
+                                <TouchableOpacity style={styles.createnew} onPress={this.logout}>
+                                    <Text style={styles.createnewtext} onPress={this.createUser()}> Create New </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    }
+
                 </View>
 
                 <View style={styles.footer}>
@@ -108,11 +171,13 @@ export default class Admin extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        zIndex: 1,
         height: '100%',
         width: '100%',
-        backgroundColor: '#283C63',
+        backgroundColor: '#19233e',
         alignItems: 'center',
         justifyContent: 'center',
+        position: 'relative'
     },
 
     header: {
@@ -175,7 +240,7 @@ const styles = StyleSheet.create({
         paddingLeft: 30,
         paddingRight: 30,
         paddingBottom: 10,
-        paddingTop: 5,
+        paddingTop: 70,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
     },
@@ -304,6 +369,31 @@ const styles = StyleSheet.create({
 
         alignItems: 'center',
         justifyContent: 'center'
-    }
+    },
+
+    tab: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#19233e',
+        margin: 2,
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15
+
+    },
+    tabView: {
+        position: 'absolute',
+        top: '14.5%',
+        width: '100%',
+        height: 50,
+        flexDirection: 'row',
+        flex: 1,
+        zIndex: 3,
+        borderBottomWidth: 2,
+        backgroundColor: '#283C63'
+    },
+
 
 })

@@ -56,7 +56,11 @@ export default class App extends React.Component {
       // {img: 'http://www.iconhot.com/icon/png/file-icons-vs-2/256/jpg-2.png', name: 'Lisabon - 7 days', date: '1.7.2018-8.7.2018', price: '6800', organisator: 'lia', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In scelerisque tortor vel tincidunt tempus. Vivamus at molestie enim. Vivamus eleifend tempor nisl a laoreet. Orci varius natoque penatibus et magnis dis parturient Cras luctus lobortis quam eget volutpat. Sed a vulputate sapien.', },
       // {img: 'http://www.iconhot.com/icon/png/file-icons-vs-2/256/jpg-2.png', name: 'Egypt - 14 days', date: '15.9.2018-29.9.2018', price: '12400', organisator: 'lia', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In scelerisque tortor vel tincidunt tempus. Vivamus at molestie enim. Vivamus eleifend tempor nisl a laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras luctus lobortis quam eget volutpat.', },
     
-    ]
+    ];
+
+    // global.deletedUser = [];
+
+    // global.deletedTrip = [];
   }
 
   // componentWillMount(){

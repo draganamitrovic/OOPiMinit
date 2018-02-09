@@ -5,22 +5,29 @@ import { Actions } from 'react-native-router-flux';
 export default class Student extends React.Component {
 
   state = {
-    destination: [],
+    destinationBooked: [],
+    userDetail: [],
   }
 
   componentWillMount() {
-    this.setState({ destination: [{ name: 'destination 1', id: 1 }, { name: 'destination 2', id: 2 }, { name: 'destination', id: 3 }] })
+    //save user detail to state
   }
 
   logout() {
     Actions.login();
   }
 
-  profile() {}
+  profile = () => {
+    //pass user details to profile page from login
+  }
+
+  details = () => {
+    //pass offer parameters to trip page
+  }
 
   listItems() {
-    return this.state.destination.map(e => {
-      return <View style={{ flex: 1, flexDirection: 'row', width: '100%', height: 50, borderBottomWidth: 1, borderBottomColor: '#928A97'}}>
+    return global.trip.map((e, i) => {
+      return <View key={i} style={{ flex: 1, flexDirection: 'row', width: '100%', height: 50, borderBottomWidth: 1, borderBottomColor: '#928A97' }}>
         <Text style={styles.destText}>{e.name}</Text>
         <TouchableOpacity style={styles.details} onPress={this.details}>
           <Text style={styles.detailsText}> Details </Text>
@@ -40,7 +47,7 @@ export default class Student extends React.Component {
 
         <View style={styles.header}>
           <View style={styles.logout}>
-          <TouchableOpacity style={styles.profile} onPress={this.profile}>
+            <TouchableOpacity style={styles.profile} onPress={this.profile}>
               <Text style={styles.logoutText}> Profile </Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.logoutbtn} onPress={this.logout}>
