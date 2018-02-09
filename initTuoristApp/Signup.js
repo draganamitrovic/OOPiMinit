@@ -46,9 +46,12 @@ export default class Signup extends React.Component {
           <Text style={styles.title}>Welcome to StudentTuorsitApp</Text>
         </View>
 
-        <ScrollView>
 
-          <View style={styles.formView}>
+
+        <View style={styles.formView}>
+
+          <ScrollView>
+
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Name"
@@ -95,9 +98,11 @@ export default class Signup extends React.Component {
             <TouchableOpacity style={styles.register} onPress={this.register}>
               <Text style={styles.registerText}> Register </Text>
             </TouchableOpacity>
-          </View>
 
-        </ScrollView>
+          </ScrollView>
+
+        </View>
+
 
         <View style={styles.subtitleView}>
           <Text style={styles.subtitle}>Register to continue or &nbsp;
@@ -135,7 +140,8 @@ const styles = StyleSheet.create({
   subtitleView: {
     flex: 0.5,
     justifyContent: 'flex-start',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 10
   },
 
   login: {
@@ -152,6 +158,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 7,
+    alignSelf: 'center'
   },
 
   registerText: {
@@ -162,6 +169,8 @@ const styles = StyleSheet.create({
 
   formView: {
     flex: 5,
+    width: '100%',
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center'
   },
