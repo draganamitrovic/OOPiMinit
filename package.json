@@ -1,7 +1,3 @@
 {
-  "dependencies": {
-    "react-native-fs": "^2.9.7",
-    "react-native-simple-dialogs": "^0.3.1",
-    "realm": "^2.2.6"
-  }
+  "dependencies": {}
 }

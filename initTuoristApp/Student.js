@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { Alert, View, StyleSheet, Text, TouchableOpacity, ScrollView, Image, TextInput } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 export default class Student extends React.Component {
@@ -7,10 +7,22 @@ export default class Student extends React.Component {
   state = {
     destinationBooked: [],
     userDetail: [],
+    studentName: '',
+    window: 'list',
+
+    offer: '',
+
+    Pname: '',
+    Pdesc: '',
+    Pimg: '',
+    Pdate: '',
+    Porganisator: '',
+    Pprice: ''
   }
 
   componentWillMount() {
     //save user detail to state
+    this.setState({ studentName: this.props.studentName });
   }
 
   logout() {
@@ -19,17 +31,30 @@ export default class Student extends React.Component {
 
   profile = () => {
     //pass user details to profile page from login
+    Actions.user({ user: 'user', usernameLogin: this.props.studentName });
   }
 
-  details = () => {
-    //pass offer parameters to trip page
+  details(name) {
+    this.setState({offer: name})
+    global.trip.map((e) => {
+      Alert.alert('name offer ' + e.name + ' props offer .' + this.state.offer);
+      if (e.name === this.state.offer) {
+        // Alert.alert('name offer ' + e.name + ' props offer .' + this.state.offer);
+        this.setState({ Pname: e.name, Pdate: e.date, Pprice: e.price, Porganisator: e.organisator, Pdesc: e.desc, Pimg: e.img });
+      }
+    });
+    this.setState({ window: 'offer' })
+  }
+
+  book = () => {
+    //alert and strpaj u niz
   }
 
   listItems() {
     return global.trip.map((e, i) => {
-      return <View key={i} style={{ flex: 1, flexDirection: 'row', width: '100%', height: 50, borderBottomWidth: 1, borderBottomColor: '#928A97' }}>
+      return <View key={e} style={{ flex: 1, flexDirection: 'row', width: '100%', height: 50, borderBottomWidth: 1, borderBottomColor: '#928A97' }}>
         <Text style={styles.destText}>{e.name}</Text>
-        <TouchableOpacity style={styles.details} onPress={this.details}>
+        <TouchableOpacity style={styles.details} onPress={() => {this.details(e.name)}}>
           <Text style={styles.detailsText}> Details </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.book} onPress={this.book}>
@@ -60,11 +85,89 @@ export default class Student extends React.Component {
         </View>
 
         <View style={styles.body}>
-          <ScrollView style={{ flex: 1, width: '100%', height: '100%', margin: 10 }}>
 
-            {this.listItems()}
+          {this.state.window == 'list' &&
+            <ScrollView style={{ flex: 1, width: '100%', height: '100%', margin: 10 }}>
 
-          </ScrollView>
+              {this.listItems()}
+
+            </ScrollView>
+          }
+
+          {this.state.window == 'offer' &&
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ width: '100%', alignItems: 'center' }} >
+              <View style={{ width: '100%', justifyContent: 'flex-start', alignItems: 'center', paddingTop: 10 }}>
+                <Image
+                  style={{ width: 150, height: 150, borderRadius: 5, margin: 10 }}
+                  source={{ uri: this.props.Pimg }}
+                />
+
+              </View>
+
+              <View style={{ width: '100%', justifyContent: 'flex-start', alignItems: 'center' }}>
+
+                <Text style={{ padding: 10, color: '#F0FFF3', fontWeight: 'bold', width: '100%', textAlign: 'center' }}>Picture of Journey</Text>
+                <TextInput style={styles.inputUri}
+                  underlineColorAndroid='rgba(0,0,0,0)'
+                  placeholder={this.props.Pimg}
+                  placeholderTextColor="#2f4775"
+                  returnKeyType="go"
+                  ref={(input) => this.Pimg = input}
+                  onChangeText={Pimg => this.setState({ Pimg: Pimg })}
+                />
+                <Text style={{ padding: 10, color: '#F0FFF3', fontWeight: 'bold', textAlign: 'center' }}>Journey Name</Text>
+                <TextInput style={styles.input}
+                  underlineColorAndroid='rgba(0,0,0,0)'
+                  placeholder={this.props.Pname}
+                  placeholderTextColor="#2f4775"
+                  returnKeyType="go"
+                  ref={(input) => this.Pname = input}
+                  onChangeText={Pname => this.setState({ Pname: Pname })}
+                />
+                <Text style={{ padding: 10, color: '#F0FFF3', fontWeight: 'bold', textAlign: 'center' }}>Journey Date</Text>
+                <TextInput style={styles.input}
+                  underlineColorAndroid='rgba(0,0,0,0)'
+                  placeholder={this.props.Pdate}
+                  placeholderTextColor="#2f4775"
+                  returnKeyType="go"
+                  ref={(input) => this.Pdate = input}
+                  onChangeText={Pdate => this.setState({ Pdate: Pdate })}
+                />
+                <Text style={{ padding: 10, color: '#F0FFF3', fontWeight: 'bold', textAlign: 'center' }}>Journey Price</Text>
+                <TextInput style={styles.input}
+                  underlineColorAndroid='rgba(0,0,0,0)'
+                  placeholder={this.props.Pprice}
+                  placeholderTextColor="#2f4775"
+                  returnKeyType="go"
+                  ref={(input) => this.Pprice = input}
+                  onChangeText={Pprice => this.setState({ Pprice: Pprice })}
+                />
+                <Text style={{ padding: 10, color: '#F0FFF3', fontWeight: 'bold', textAlign: 'center' }}>Organisator of Journey</Text>
+                <TextInput style={styles.input}
+                  underlineColorAndroid='rgba(0,0,0,0)'
+                  placeholder={this.props.Porganisator}
+                  placeholderTextColor="#2f4775"
+                  returnKeyType="go"
+                  ref={(input) => this.Porganisator = input}
+                  onChangeText={Porganisator => this.setState({ Porganisator: Porganisator })}
+                />
+                <Text style={{ padding: 10, color: '#F0FFF3', fontWeight: 'bold', textAlign: 'center' }}>Journey Description</Text>
+                <TextInput style={styles.inputDesc}
+                  underlineColorAndroid='rgba(0,0,0,0)'
+                  placeholder={this.props.Pdesc}
+                  placeholderTextColor="#2f4775"
+                  returnKeyType="go"
+                  ref={(input) => this.Pdesc = input}
+                  onChangeText={Pdesc => this.setState({ Pdesc: Pdesc })}
+                  multiline={true}
+                />
+                <TouchableOpacity style={styles.submitBtn} onPress={this.login}>
+                  <Text style={styles.submitText}> Submit Changes </Text>
+                </TouchableOpacity>
+
+              </View>
+            </ScrollView>
+          }
         </View>
 
         <View style={styles.footer}>
@@ -81,7 +184,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     width: '100%',
-    backgroundColor: '#283C63',
+    backgroundColor: '#f4ac8c',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -91,9 +194,9 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#2f4775',
+    backgroundColor: '#2d3a5a',
     borderBottomWidth: 2,
-    borderColor: '#19233e'
+    borderColor: '#ee7946'
   },
 
 
@@ -103,7 +206,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    backgroundColor: '#2f4775',
+    backgroundColor: '#2d3a5a',
   },
 
   logoutbtn: {
@@ -112,9 +215,9 @@ const styles = StyleSheet.create({
     width: 75,
     height: 30,
     borderBottomLeftRadius: 15,
-    backgroundColor: '#F85F73',
+    backgroundColor: '#3f507c',
     borderWidth: 2,
-    borderColor: '#f86f81'
+    borderColor: '#2d3a5a'
   },
 
   profile: {
@@ -123,13 +226,13 @@ const styles = StyleSheet.create({
     width: 75,
     height: 30,
     borderBottomRightRadius: 15,
-    backgroundColor: '#F85F73',
+    backgroundColor: '#3f507c',
     borderWidth: 2,
-    borderColor: '#f86f81'
+    borderColor: '#2d3a5a'
   },
 
   logoutText: {
-    color: '#19233e',
+    color: '#f08a5d',
     textAlign: 'center',
     paddingBottom: 3,
     paddingLeft: 2,
@@ -148,7 +251,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     paddingBottom: 20,
-    color: '#F85F73'
+    color: '#ee7946'
   },
 
   body: {
@@ -172,14 +275,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 50,
     height: 25,
-    backgroundColor: '#F85F73',
+    backgroundColor: '#3f507c',
     margin: 10,
     borderTopLeftRadius: 5,
     borderBottomRightRadius: 5,
   },
 
   detailsText: {
-    color: '#19233e',
+    color: '#ee7946',
     textAlign: 'center',
     paddingBottom: 3,
     paddingLeft: 2,
@@ -192,16 +295,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 70,
     height: 25,
-    backgroundColor: '#f86f81',
+    backgroundColor: '#36456b',
     borderWidth: 2,
-    borderColor: '#F85F73',
+    borderColor: '#3f507c',
     margin: 10,
     borderTopLeftRadius: 5,
     borderBottomRightRadius: 5,
   },
 
   bookText: {
-    color: '#19233e',
+    color: '#ee7946',
     textAlign: 'center',
     paddingBottom: 3,
     paddingLeft: 2,
@@ -226,7 +329,7 @@ const styles = StyleSheet.create({
 
   destText: {
     textAlign: 'left',
-    color: '#FBE8D3',
+    color: '#252f49',
     alignSelf: 'center',
     width: '100%',
     fontSize: 16,
@@ -247,12 +350,12 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     width: '100%',
     padding: 10,
-    backgroundColor: '#213151'
+    backgroundColor: '#f29b74'
   },
 
   footerText: {
     textAlign: 'right',
-    color: '#928A97',
+    color: '#3f507c',
     alignSelf: 'flex-end',
     width: '100%',
     fontSize: 12

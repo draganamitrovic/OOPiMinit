@@ -6,35 +6,34 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 export default class Signup extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      password: '',
-      name: '',
-      address: '',
-      picture: '',
-      username: '',
-      loading: false
-    };
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     password: '',
+  //     name: '',
+  //     address: '',
+  //     picture: '',
+  //     username: '',
+  //     loading: false
+  //   };
+  // }
+
+  state = {
+    Uname: '',
+    Uaddress: '',
+    Uusername: 'nisam setovan',
+    Upassword: '',
+    Uimg: ''
   }
 
   login() {
     Actions.login();
   };
 
-  register() {
-    // Actions.student();
-    // this.setState({ error: '', loading: true });
-    // const { email, password } = this.state;
-    // Firebase.auth().createUserWithEmailAndPassword(email, password)
-    //   .then(() => {
-    //     this.setState({ error: '', loading: false });
-    //     Actions.student();
-    //   })
-    //   .catch(() => {
-    //     this.setState({ error: 'Authentication failed', loading: false })
-    //   })
-
+  register = () => {
+    let newUser = { img: this.state.Uimg, name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'student' };
+    global.user.push(newUser);
+    Actions.login();
   };
 
   render() {
@@ -46,7 +45,10 @@ export default class Signup extends React.Component {
           <Text style={styles.title}>Welcome to StudentTuorsitApp</Text>
         </View>
 
-
+        <View style={styles.subtitleView}>
+          <Text style={styles.subtitle}>Register to continue or &nbsp;
+          <Text style={styles.login} onPress={this.login}>Login</Text></Text>
+        </View>
 
         <View style={styles.formView}>
 
@@ -55,45 +57,45 @@ export default class Signup extends React.Component {
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Name"
-              placeholderTextColor="#2f4775"
+              placeholderTextColor="#3f507c"
               returnKeyType="go"
               ref={(input) => this.name = input}
-              onChangeText={name => this.setState({ name })}
+              onChangeText={name => this.setState({ Uname: name })}
             />
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Username"
-              placeholderTextColor="#2f4775"
+              placeholderTextColor="#3f507c"
               returnKeyType="go"
               ref={(input) => this.username = input}
-              onChangeText={username => this.setState({ username })}
+              onChangeText={username => this.setState({ Uusername: username })}
             />
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Address"
-              placeholderTextColor="#2f4775"
+              placeholderTextColor="#3f507c"
               returnKeyType="go"
               ref={(input) => this.address = input}
-              onChangeText={address => this.setState({ address })}
+              onChangeText={address => this.setState({ Uaddress: address })}
             />
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Picture url"
-              placeholderTextColor="#2f4775"
+              placeholderTextColor="#3f507c"
               returnKeyType="go"
               ref={(input) => this.picture = input}
-              onChangeText={picture => this.setState({ picture })}
+              onChangeText={picture => this.setState({ Uimg: picture })}
             />
 
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Password"
               secureTextEntry={true}
-              placeholderTextColor="#2f4775"
+              placeholderTextColor="#3f507c"
               returnKeyType="go"
               ref={(input) => this.password = input}
               secureTextEntry={true}
-              onChangeText={password => this.setState({ password })}
+              onChangeText={password => this.setState({ Upassword: password })}
             />
             <TouchableOpacity style={styles.register} onPress={this.register}>
               <Text style={styles.registerText}> Register </Text>
@@ -103,17 +105,8 @@ export default class Signup extends React.Component {
 
         </View>
 
-
-        <View style={styles.subtitleView}>
-          <Text style={styles.subtitle}>Register to continue or &nbsp;
-          <Text style={styles.login} onPress={this.login}>Login</Text></Text>
-        </View>
-
         <View style={styles.footerView}>
           <Text style={styles.footer}>by Dragana Mitrovic</Text>
-          {this.state.loading &&
-            <Text style={styles.footer}>Loading</Text>
-          }
         </View>
 
       </View>
@@ -128,17 +121,18 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#283C63',
+    backgroundColor: '#f08a5d',
   },
 
   titleView: {
-    flex: 2,
-    justifyContent: 'center',
+    flex: 1.5,
+    justifyContent: 'flex-end',
+    paddingBottom: 5,
     alignItems: 'center'
   },
 
   subtitleView: {
-    flex: 0.5,
+    flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
     marginTop: 10
@@ -146,7 +140,7 @@ const styles = StyleSheet.create({
 
   login: {
     fontSize: 17,
-    color: '#F85F73',
+    color: '#36456b',
     fontWeight: 'bold'
   },
 
@@ -154,15 +148,17 @@ const styles = StyleSheet.create({
     width: 85,
     height: 30,
     marginTop: 5,
-    backgroundColor: '#F85F73',
+    backgroundColor: '#36456b',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 7,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    borderColor: '#2d3a5a',
+    borderWidth: 1
   },
 
   registerText: {
-    color: '#283C63',
+    color: '#ee7946',
     textAlign: 'center',
     fontWeight: 'bold'
   },
@@ -185,7 +181,7 @@ const styles = StyleSheet.create({
 
   footer: {
     textAlign: 'right',
-    color: '#928A97',
+    color: '#3f507c',
     alignSelf: 'flex-end',
     width: '100%',
     fontSize: 12
@@ -195,7 +191,7 @@ const styles = StyleSheet.create({
     width: 230,
     height: 40,
     marginBottom: 15,
-    backgroundColor: '#F0FFF3',
+    backgroundColor: '#FBE4DA',
     textAlign: 'center'
   },
 
@@ -203,16 +199,16 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     paddingBottom: 20,
-    color: '#F85F73',
+    color: '#36456b',
   },
 
   subtitle: {
     fontSize: 17,
-    color: '#928A97',
+    color: '#3f507c',
   },
 
   loginText: {
-    color: '#283C63',
+    color: '#36456b',
     textAlign: 'center',
   }
 

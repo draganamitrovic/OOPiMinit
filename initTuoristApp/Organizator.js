@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
         zIndex: 1,
         height: '100%',
         width: '100%',
-        backgroundColor: '#19233e',
+        backgroundColor: '#f4ac8c',
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative'
@@ -138,9 +138,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#2f4775',
-        borderBottomWidth: 2,
-        borderColor: '#19233e'
+        backgroundColor: '#2d3a5a',
     },
 
 
@@ -149,7 +147,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'flex-end',
         justifyContent: 'flex-start',
-        backgroundColor: '#2f4775',
+        backgroundColor: '#2d3a5a',
     },
 
     logoutbtn: {
@@ -158,13 +156,13 @@ const styles = StyleSheet.create({
         width: 75,
         height: 30,
         borderBottomLeftRadius: 15,
-        backgroundColor: '#F85F73',
+        backgroundColor: '#3f507c',
         borderWidth: 2,
-        borderColor: '#f86f81'
+        borderColor: '#2d3a5a'
     },
 
     logoutText: {
-        color: '#19233e',
+        color: '#f08a5d',
         textAlign: 'center',
         paddingBottom: 3,
         paddingLeft: 2,
@@ -183,7 +181,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         paddingBottom: 20,
-        color: '#F85F73'
+        color: '#ee7946'
     },
 
     body: {
@@ -210,14 +208,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: 50,
         height: 25,
-        backgroundColor: '#F85F73',
+        backgroundColor: '#3f507c',
         margin: 10,
         borderTopLeftRadius: 5,
         borderBottomRightRadius: 5,
     },
 
     detailsText: {
-        color: '#19233e',
+        color: '#ee7946',
         textAlign: 'center',
         paddingBottom: 3,
         paddingLeft: 2,
@@ -230,16 +228,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: 60,
         height: 25,
-        backgroundColor: '#f86f81',
+        backgroundColor: '#36456b',
         borderWidth: 2,
-        borderColor: '#F85F73',
+        borderColor: '#3f507c',
         margin: 10,
         borderTopLeftRadius: 5,
         borderBottomRightRadius: 5,
     },
 
     deleteText: {
-        color: '#19233e',
+        color: '#ee7946',
         textAlign: 'center',
         paddingBottom: 3,
         paddingLeft: 2,
@@ -256,7 +254,7 @@ const styles = StyleSheet.create({
 
     destText: {
         textAlign: 'left',
-        color: '#FBE8D3',
+        color: '#252f49',
         alignSelf: 'center',
         width: '100%',
         fontSize: 16,
@@ -277,12 +275,12 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         width: '100%',
         padding: 10,
-        backgroundColor: '#213151'
+        backgroundColor: '#f29b74'
     },
 
     footerText: {
         textAlign: 'right',
-        color: '#928A97',
+        color: '#3f507c',
         alignSelf: 'flex-end',
         width: '100%',
         fontSize: 12
@@ -292,7 +290,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         width: '100%',
         textAlign: 'left',
-        color: '#f86f81',
+        color: '#252f49',
         fontWeight: 'bold',
         borderBottomWidth: 2,
         borderBottomColor: '#928A97',
@@ -302,7 +300,7 @@ const styles = StyleSheet.create({
     createnew: {
         width: 130,
         height: 30,
-        backgroundColor: '#F85F73',
+        backgroundColor: '#36456b',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 5,
@@ -310,7 +308,7 @@ const styles = StyleSheet.create({
     },
 
     createnewtext: {
-        color: '#19233e',
+        color: '#ee7946',
         textAlign: 'center',
         paddingBottom: 3,
         paddingLeft: 2,
@@ -330,10 +328,13 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#19233e',
+        backgroundColor: '#f4ac8c',
         margin: 2,
         borderTopLeftRadius: 15,
-        borderTopRightRadius: 15
+        borderTopRightRadius: 15,
+        borderWidth: 1,
+        borderBottomColor: '#f4ac8c',
+        borderColor: '#f08a5d'
 
     },
     tabView: {
@@ -344,8 +345,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         zIndex: 3,
-        borderBottomWidth: 2,
-        backgroundColor: '#283C63'
+        backgroundColor: '#2d3a5a'
     },
 
 
