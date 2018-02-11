@@ -66,15 +66,18 @@ export default class Signup extends React.Component {
 
         <View style={styles.formView}>
 
-          <ScrollView >
+          <KeyboardAwareScrollView
+           scrollEnabled={true}
+           resetScrollToCoords={{ x: 0, y: 0 }} >
+           
 
-            <Text style={{ flex: 1, paddingBottom: 15, color: 'gray', fontStyle: 'italic', textAlign: 'left', fontSize: 12 }}> All fields marked with an asterisk (*) are required.</Text>
+            <Text style={{ flex: 1, paddingBottom: 15, color: '#35446b', fontStyle: 'italic', textAlign: 'left', fontSize: 12 }}> All fields marked with an asterisk (*) are required.</Text>
 
 
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="* Full Name"
-              placeholderTextColor="gray"
+              placeholderTextColor="#35446b"
               returnKeyType="go"
               ref={(input) => this.name = input}
               onChangeText={name => this.setState({ Uname: name })}
@@ -82,7 +85,7 @@ export default class Signup extends React.Component {
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="* Username"
-              placeholderTextColor="gray"
+              placeholderTextColor="#35446b"
               returnKeyType="go"
               ref={(input) => this.username = input}
               onChangeText={username => this.setState({ Uusername: username })}
@@ -91,7 +94,7 @@ export default class Signup extends React.Component {
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="* Password"
               secureTextEntry={true}
-              placeholderTextColor="gray"
+              placeholderTextColor="#35446b"
               returnKeyType="go"
               ref={(input) => this.password = input}
               secureTextEntry={true}
@@ -100,7 +103,7 @@ export default class Signup extends React.Component {
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Address"
-              placeholderTextColor="gray"
+              placeholderTextColor="#35446b"
               returnKeyType="go"
               ref={(input) => this.address = input}
               onChangeText={address => this.setState({ Uaddress: address })}
@@ -108,7 +111,7 @@ export default class Signup extends React.Component {
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Picture url"
-              placeholderTextColor="gray"
+              placeholderTextColor="#35446b"
               returnKeyType="go"
               ref={(input) => this.picture = input}
               onChangeText={picture => this.setState({ Uimg: picture })}
@@ -118,7 +121,7 @@ export default class Signup extends React.Component {
               <Text style={styles.registerText}> Register </Text>
             </TouchableOpacity>
 
-          </ScrollView>
+          </KeyboardAwareScrollView>
 
         </View>
 
@@ -138,7 +141,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#e8e8e8',
+    backgroundColor: '#f08a5d',
   },
 
   titleView: {
@@ -157,7 +160,7 @@ const styles = StyleSheet.create({
 
   login: {
     fontSize: 17,
-    color: '#f85959',
+    color: '#1c2338',
     fontWeight: 'bold'
   },
 
@@ -165,17 +168,17 @@ const styles = StyleSheet.create({
     width: 85,
     height: 30,
     marginTop: 5,
-    backgroundColor: '#f85959',
+    backgroundColor: '#1c2338',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 7,
     alignSelf: 'center',
-    borderColor: 'gray',
+    borderColor: '#35446b',
     borderWidth: 1
   },
 
   registerText: {
-    color: 'white',
+    color: '#f08a5d',
     textAlign: 'center',
     fontWeight: 'bold'
   },
@@ -198,7 +201,7 @@ const styles = StyleSheet.create({
 
   footer: {
     textAlign: 'right',
-    color: '#f85959',
+    color: '#1c2338',
     alignSelf: 'flex-end',
     width: '100%',
     fontSize: 12
@@ -208,7 +211,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 40,
     marginBottom: 15,
-    backgroundColor: 'white',
+    backgroundColor: '#fdf3ee',
     textAlign: 'center'
   },
 
@@ -216,16 +219,16 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     paddingBottom: 20,
-    color: '#f85959',
+    color: '#1c2338',
   },
 
   subtitle: {
     fontSize: 17,
-    color: 'gray',
+    color: '#35446b',
   },
 
   loginText: {
-    color: '#f85959',
+    color: '#35446b',
     textAlign: 'center',
   }
 

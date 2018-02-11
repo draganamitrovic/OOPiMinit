@@ -13,7 +13,7 @@ export default class Organizator extends React.Component {
         Pdesc: '',
         Pimg: 'http://www.iconhot.com/icon/png/file-icons-vs-2/256/jpg-2.png',
         Pdate: '',
-        Porganisator: '',
+        Pmanager: '',
         Pprice: ''
     }
 
@@ -24,6 +24,10 @@ export default class Organizator extends React.Component {
     componentWillUnmount() {
         global.trip = [];
         global.trip = this.state.offers;
+    }
+
+    back = () => {
+        this.setState({ dashboard: 'list' })
     }
 
     logout() {
@@ -42,17 +46,17 @@ export default class Organizator extends React.Component {
     submitTrip = () => {
         if (this.state.Pname != '' && this.state.Pdate != '') {
             if (this.state.Pimg == '') {
-                let newTrip = { img: 'http://www.iconhot.com/icon/png/file-icons-vs-2/256/jpg-2.png', name: this.state.Pname, desc: this.state.Pdesc, date: this.state.Pdate, organisator: this.state.Porganisator, price: this.state.Pprice };
+                let newTrip = { img: 'http://www.iconhot.com/icon/png/file-icons-vs-2/256/jpg-2.png', name: this.state.Pname, desc: this.state.Pdesc, date: this.state.Pdate, manager: this.state.Pmanager, price: this.state.Pprice };
                 let list = this.state.offers;
                 list.push(newTrip);
                 JSON.stringify(list, null, ' ');
-                this.setState({ offers: list });
+                this.setState({ offers: list, dashboard: 'list' });
             } else {
-                let newTrip = { img: this.state.Pimg, name: this.state.Pname, desc: this.state.Pdesc, date: this.state.Pdate, organisator: this.state.Porganisator, price: this.state.Pprice };
+                let newTrip = { img: this.state.Pimg, name: this.state.Pname, desc: this.state.Pdesc, date: this.state.Pdate, manager: this.state.Pmanager, price: this.state.Pprice };
                 let list = this.state.offers;
                 list.push(newTrip);
                 JSON.stringify(list, null, ' ');
-                this.setState({ offers: list });
+                this.setState({  offers: list, dashboard: 'list'  });
             }
 
         } else {
@@ -70,7 +74,7 @@ export default class Organizator extends React.Component {
             return <View key={i} style={{ flex: 1, flexDirection: 'row', padding: 10, width: '100%', height: 37, borderBottomWidth: 1, borderBottomColor: '#928A97', justifyContent: 'center', alignItems: 'center' }}>
                 <Text style={styles.destText}>{e.name}</Text>
                 <TouchableOpacity style={styles.delete} onPress={() => { this.deleteOffer(e.name) }}>
-                    <Image source={require('./ico/delete.png')} />
+                    <Image style={{ width: 32, height: 32 }} source={require('./ico/delete.png')} />
                 </TouchableOpacity>
             </View>
         })
@@ -78,9 +82,11 @@ export default class Organizator extends React.Component {
 
     listStudents() {
         return this.state.users.map((e, i) => {
-            return <View key={i} style={{ flex: 1, flexDirection: 'row', padding: 10, width: '100%', height: 37, borderBottomWidth: 1, borderBottomColor: '#928A97', justifyContent: 'center' }}>
-                <Text style={styles.destText}>{e.name}</Text>
-            </View>
+            if (e.type == 'student') {
+                return <View key={i} style={{ flex: 1, flexDirection: 'row', width: '100%', height: 37, borderBottomWidth: 1, borderBottomColor: '#928A97', justifyContent: 'center' }}>
+                    <Text style={styles.destText}>{e.name}</Text>
+                </View>
+            }
         })
     }
 
@@ -93,7 +99,7 @@ export default class Organizator extends React.Component {
                 <View style={styles.header}>
                     <View style={styles.logout}>
                         <TouchableOpacity style={styles.logoutbtn} onPress={this.logout}>
-                            <Image source={require('./ico/log.png')} />
+                            <Image style={{ width: 32, height: 32 }} source={require('./ico/log.png')} />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.headerTitle}>
@@ -115,11 +121,10 @@ export default class Organizator extends React.Component {
                                         {this.listItems()}
                                     </ScrollView>
 
-                                    <View style={styles.newbtn}>
-                                        <TouchableOpacity style={styles.createnew} onPress={this.createTrip}>
-                                            <Image style={{ width: 50, height: 50 }} source={require('./ico/add.png')} />
+                                   
+                                   <TouchableOpacity style={{zIndex: 3, position: 'absolute', bottom: 5, right: 15}} onPress={this.createTrip}>
+                                            <Image style={{ width: 60, height: 60 }} source={require('./ico/add.png')} />
                                         </TouchableOpacity>
-                                    </View>
 
                                 </View>
                             }
@@ -140,11 +145,11 @@ export default class Organizator extends React.Component {
                         <View style={styles.tabView} >
 
                             <TouchableOpacity style={styles.tab} onPress={() => this.setState({ selectedTab: 'offers' })}>
-                                <Image source={this.state.selectedTab == 'offers' ? require('./ico/tour.png') : require('./ico/tourOff.png')} />
+                                <Image style={{ width: 32, height: 32 }} source={this.state.selectedTab == 'offers' ? require('./ico/tour.png') : require('./ico/tourOff.png')} />
                             </TouchableOpacity>
 
                             <TouchableOpacity style={styles.tab} onPress={() => this.setState({ selectedTab: 'students' })}>
-                                <Image source={this.state.selectedTab == 'students' ? require('./ico/student.png') : require('./ico/studentOff.png')} />
+                                <Image style={{ width: 32, height: 32 }} source={this.state.selectedTab == 'students' ? require('./ico/student.png') : require('./ico/studentOff.png')} />
                             </TouchableOpacity>
 
                         </View>
@@ -193,14 +198,14 @@ export default class Organizator extends React.Component {
                                     ref={(input) => this.Pprice = input}
                                     onChangeText={Pprice => this.setState({ Pprice: Pprice })}
                                 />
-                                <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', textAlign: 'center' }}>Organisator of Tourist Offer</Text>
+                                <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', textAlign: 'center' }}>manager of Tourist Offer</Text>
                                 <TextInput style={styles.input}
                                     underlineColorAndroid='rgba(0,0,0,0)'
-                                    placeholder={this.props.Porganisator}
+                                    placeholder={this.props.Pmanager}
                                     placeholderTextColor="gray"
                                     returnKeyType="go"
-                                    ref={(input) => this.Porganisator = input}
-                                    onChangeText={Porganisator => this.setState({ Porganisator: Porganisator })}
+                                    ref={(input) => this.Pmanager = input}
+                                    onChangeText={Pmanager => this.setState({ Pmanager: Pmanager })}
                                 />
                                 <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', textAlign: 'center' }}>Tourist Offer Description</Text>
                                 <TextInput style={styles.inputDesc}
@@ -226,6 +231,11 @@ export default class Organizator extends React.Component {
 
                             </View>
                         </ScrollView>
+
+                        <TouchableOpacity style={{ bottom: 10, right: 10, zIndex: 3, position: 'absolute' }} onPress={this.back}>
+                            <Image style={{ width: 50, height: 50 }} source={require('./ico/back.png')} />
+                        </TouchableOpacity>
+
                     </View>
                 }
 
@@ -241,7 +251,7 @@ const styles = StyleSheet.create({
         zIndex: 1,
         height: '100%',
         width: '100%',
-        backgroundColor: '#e8e8e8',
+        backgroundColor: '#fdf3ee',
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -251,7 +261,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#f85959',
+        backgroundColor: '#f08a5d',
     },
 
 
@@ -279,7 +289,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         paddingBottom: 20,
-        color: 'white'
+        color: '#35446b'
     },
 
     body: {
@@ -290,7 +300,7 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
-        backgroundColor: '#e8e8e8'
+        backgroundColor: '#fdf3ee'
     },
 
     listView: {
@@ -304,7 +314,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         margin: 2,
-        width: 32,
+        width: '100%',
         height: 32
     },
 
@@ -313,7 +323,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         margin: 2,
-        width: 32,
+        width: '100%',
         height: 32
     },
 
@@ -327,7 +337,7 @@ const styles = StyleSheet.create({
     destText: {
         flex: 6,
         textAlign: 'left',
-        color: 'black',
+        color: '#1c2338',
         alignSelf: 'center',
         width: '100%',
         fontSize: 16,
@@ -341,28 +351,11 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
 
-    footer: {
-        flex: 0.5,
-        justifyContent: 'flex-end',
-        alignItems: 'flex-end',
-        width: '100%',
-        padding: 10,
-        backgroundColor: '#f85959'
-    },
-
-    footerText: {
-        textAlign: 'right',
-        color: 'gray',
-        alignSelf: 'flex-end',
-        width: '100%',
-        fontSize: 12
-    },
-
     listTitle: {
         fontSize: 18,
         width: '100%',
         textAlign: 'left',
-        color: '#f85959',
+        color: '#35446b',
         fontWeight: 'bold',
         paddingBottom: 10
     },
@@ -370,7 +363,7 @@ const styles = StyleSheet.create({
     createnew: {
         width: '100%',
         height: '100%',
-        backgroundColor: '#e8e8e8',
+        backgroundColor: '#fdf3ee',
         alignItems: 'flex-end',
         justifyContent: 'flex-end',
         margin: 15
@@ -390,7 +383,7 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         width: '100%',
         height: 70,
-        backgroundColor: '#e8e8e8',
+        backgroundColor: '#fdf3ee',
         justifyContent: 'flex-end'
     },
 
@@ -400,7 +393,7 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#f85959',
+        backgroundColor: '#f08a5d',
         margin: 2,
     },
     tabView: {
@@ -408,7 +401,7 @@ const styles = StyleSheet.create({
         height: 50,
         flexDirection: 'row',
         flex: 1.5,
-        backgroundColor: '#e8e8e8'
+        backgroundColor: '#fdf3ee'
     },
 
     input: {
@@ -439,7 +432,7 @@ const styles = StyleSheet.create({
         width: 120,
         height: 40,
         marginTop: 15,
-        backgroundColor: '#f85959',
+        backgroundColor: '#f08a5d',
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',

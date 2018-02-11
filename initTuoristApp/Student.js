@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Dimensions,Alert, View, StyleSheet, Text, TouchableOpacity, ScrollView, Image, TextInput } from 'react-native';
+import { Dimensions, Alert, View, StyleSheet, Text, TouchableOpacity, ScrollView, Image, TextInput } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 export default class Student extends React.Component {
 
   state = {
+    selectedTab: 'list',
     dashboard: 'list',
     destinationBooked: [],
     userDetail: [],
@@ -17,7 +18,7 @@ export default class Student extends React.Component {
     Pdesc: '',
     Pimg: '',
     Pdate: '',
-    Porganisator: '',
+    Pmanager: '',
     Pprice: '',
 
     Uname: '',
@@ -39,12 +40,12 @@ export default class Student extends React.Component {
 
   //ne cuva se book za usera
 
-   componentWillUnmount() {
-  //   global.booked = [];
-  //   global.booked = this.state.book;
+  componentWillUnmount() {
+    //   global.booked = [];
+    //   global.booked = this.state.book;
 
-  global.user = [];
-  global.user = this.state.users;
+    global.user = [];
+    global.user = this.state.users;
   }
 
   logout() {
@@ -58,7 +59,7 @@ export default class Student extends React.Component {
 
   book = () => {
     //alert and strpaj u niz
-    // let newUser = { img: this.state.Uimg, name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'organisator' };
+    // let newUser = { img: this.state.Uimg, name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'manager' };
     // let list = this.state.users;
     // list.push(newUser);
     // JSON.stringify(list, null, ' ');
@@ -72,31 +73,57 @@ export default class Student extends React.Component {
   }
 
   submitUser = () => {
-//  //obrisi ga 
-//      let deletedUser = this.state.users.filter(function (el) {
-//        return (el.username != this.state.studentLoged.username)
-//      });
-//  //dodaj ga
-//      let newUser = { img: this.state.Uimg, name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'organisator' };
-//      deletedUser.push(newUser);
-//      JSON.stringify(deletedUser, null, ' ');
-//      this.setState({ users: deletedUser, studentLoged: newUser });
+    //  //obrisi ga 
+    //      let deletedUser = this.state.users.filter(function (el) {
+    //        return (el.username != this.state.studentLoged.username)
+    //      });
+    //  //dodaj ga
+    //      let newUser = { img: this.state.Uimg, name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'manager' };
+    //      deletedUser.push(newUser);
+    //      JSON.stringify(deletedUser, null, ' ');
+    //      this.setState({ users: deletedUser, studentLoged: newUser });
 
-// this.setState({ Uname: this.state.studentLoged.name, Uusername: this.state.studentLoged.username, Uimg: this.state.studentLoged.img, Upassword: this.state.studentLoged.password, Uaddress: this.state.Uaddress });
-//  
-this.setState({dashboard: 'list'});
- }
+    // this.setState({ Uname: this.state.studentLoged.name, Uusername: this.state.studentLoged.username, Uimg: this.state.studentLoged.img, Upassword: this.state.studentLoged.password, Uaddress: this.state.Uaddress });
+    //  
+    this.setState({ dashboard: 'list' });
+  }
 
   listItems() {
     return global.trip.map((e, i) => {
       return <View key={e} style={{ flex: 1, flexDirection: 'row', width: '100%', height: 50, borderBottomWidth: 1, borderBottomColor: '#928A97' }}>
         <Text style={styles.destText}>{e.name}</Text>
-        <TouchableOpacity style={styles.details} onPress={() => { this.setState({ Pdate: e.date, Pdesc: e.desc, Pimg: e.img, Pname: e.name, Porganisator: e.organisator, Pprice: e.price, dashboard: 'info' }) }}>
-          <Image source={require('./ico/more.png')} />
+        <TouchableOpacity style={styles.details} onPress={() => { this.setState({ Pdate: e.date, Pdesc: e.desc, Pimg: e.img, Pname: e.name, Pmanager: e.manager, Pprice: e.price, dashboard: 'info' }) }}>
+          <Image style={{ width: 32, height: 32 }} source={require('./ico/more.png')} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.book} onPress={this.book}>
-          <Image source={require('./ico/book.png')} />
+        {/* <TouchableOpacity style={styles.book} onPress={this.book}> */}
+        <TouchableOpacity style={styles.book} onPress={() => { this.bookOffer(e.name) }}>
+          <Image style={{ width: 32, height: 32 }} source={require('./ico/book.png')} />
         </TouchableOpacity>
+      </View>
+    })
+  }
+
+  bookOffer = (name) => {
+    let booked = this.state.destinationBooked;
+    let imaga = false;
+    booked.map((e) => {
+      if (name == e) {
+        imaga = true;
+      }
+    });
+    if (!imaga) {
+      booked.push(name);
+      this.setState({ destinationBooked: booked });
+      Alert.alert('Trip booked successfully!')
+    } else {
+      Alert.alert('You have allready booked this offer!')
+    }
+  }
+
+  listBooked() {
+    return this.state.destinationBooked.map((e, i) => {
+      return <View key={i} style={{ flex: 1, flexDirection: 'row', width: '100%', height: 37, borderBottomWidth: 1, borderBottomColor: '#928A97', justifyContent: 'center' }}>
+        <Text style={styles.destText}>{e}</Text>
       </View>
     })
   }
@@ -112,10 +139,10 @@ this.setState({dashboard: 'list'});
         <View style={styles.header}>
           <View style={styles.logout}>
             <TouchableOpacity style={styles.profile} onPress={this.profile}>
-              <Image source={require('./ico/user.png')} />
+              <Image style={{ width: 32, height: 32 }} source={require('./ico/user.png')} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.profile} onPress={this.logout}>
-              <Image source={require('./ico/log.png')} />
+              <Image style={{ width: 32, height: 32 }} source={require('./ico/log.png')} />
             </TouchableOpacity>
           </View>
           <View style={styles.headerTitle}>
@@ -125,12 +152,44 @@ this.setState({dashboard: 'list'});
 
 
         {this.state.dashboard == 'list' &&
-          <View style={styles.body}>
 
-            <ScrollView style={{ flex: 1, width: '100%', height: '100%', margin: 10 }}>
-              {this.listItems()}
-            </ScrollView>
+          <View style={{ flex: 15, justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}>
 
+            <View style={styles.body}>
+
+              {this.state.selectedTab == 'list' &&
+                <View style={{ flex: 1, width: '100%', height: '100%', margin: 7 }}>
+                  <Text style={styles.listTitle}>List of All Tourist Offers:</Text>
+                  <ScrollView>
+                    {this.listItems()}
+                  </ScrollView>
+                </View>
+
+              }
+              {this.state.selectedTab == 'booked' &&
+                <View style={{ flex: 1, width: '100%', height: '100%', margin: 7 }}>
+                  <Text style={styles.listTitle}>List of Booked Tourist Offers:</Text>
+                  <ScrollView>
+
+                    {this.listBooked()}
+
+                  </ScrollView>
+                </View>
+              }
+
+            </View>
+
+            <View style={styles.tabView}>
+
+              <TouchableOpacity style={styles.tab} onPress={() => this.setState({ selectedTab: 'list' })}>
+                <Image style={{ width: 32, height: 32 }} source={this.state.selectedTab == 'list' ? require('./ico/tour.png') : require('./ico/tourOff.png')} />
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.tab} onPress={() => this.setState({ selectedTab: 'booked' })}>
+                <Image style={{ width: 32, height: 32 }} source={this.state.selectedTab == 'booked' ? require('./ico/book.png') : require('./ico/bookedOff.png')} />
+              </TouchableOpacity>
+
+            </View>
           </View>
         }
         {this.state.dashboard == 'info' &&
@@ -145,68 +204,40 @@ this.setState({dashboard: 'list'});
 
               <View style={{ width: Dimensions.get('window').width, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
 
-                <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', textAlign: 'center' }}>  Tourist Offer Name</Text>
-                <TextInput style={styles.input}
-                  underlineColorAndroid='rgba(0,0,0,0)'
-                  placeholder={this.state.Pname}
-                  placeholderTextColor="gray"
-                  returnKeyType="go"
-                  ref={(input) => this.Pname = input}
-                  onChangeText={Pname => this.setState({ Pname: Pname })}
-                />
-                <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', textAlign: 'center' }}>  Tourist Offer Date</Text>
-                <TextInput style={styles.input}
-                  underlineColorAndroid='rgba(0,0,0,0)'
-                  placeholder={this.state.Pdate}
-                  placeholderTextColor="gray"
-                  returnKeyType="go"
-                  ref={(input) => this.Pdate = input}
-                  onChangeText={Pdate => this.setState({ Pdate: Pdate })}
-                />
-                <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', textAlign: 'center' }}>Tourist Offer Price</Text>
-                <TextInput style={styles.input}
-                  underlineColorAndroid='rgba(0,0,0,0)'
-                  placeholder={this.state.Pprice}
-                  placeholderTextColor="gray"
-                  returnKeyType="go"
-                  ref={(input) => this.Pprice = input}
-                  onChangeText={Pprice => this.setState({ Pprice: Pprice })}
-                />
-                <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', textAlign: 'center' }}>Organisator of Tourist Offer</Text>
-                <TextInput style={styles.input}
-                  underlineColorAndroid='rgba(0,0,0,0)'
-                  placeholder={this.state.Porganisator}
-                  placeholderTextColor="gray"
-                  returnKeyType="go"
-                  ref={(input) => this.Porganisator = input}
-                  onChangeText={Porganisator => this.setState({ Porganisator: Porganisator })}
-                />
-                <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', textAlign: 'center' }}>Tourist Offer Description</Text>
-                <TextInput style={styles.inputDesc}
-                  underlineColorAndroid='rgba(0,0,0,0)'
-                  placeholder={this.state.Pdesc}
-                  placeholderTextColor="gray"
-                  returnKeyType="go"
-                  ref={(input) => this.Pdesc = input}
-                  onChangeText={Pdesc => this.setState({ Pdesc: Pdesc })}
-                  multiline={true}
-                />
-                <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', width: '100%', textAlign: 'left' }}>Picture of Tourist Offer</Text>
-                <TextInput style={styles.input}
-                  underlineColorAndroid='rgba(0,0,0,0)'
-                  placeholderTextColor="gray"
-                  returnKeyType="go"
-                  ref={(input) => this.Pimg = input}
-                  onChangeText={Pimg => this.setState({ Pimg: Pimg })}
-                />
-                <View style={styles.newbtn}>
-                  <TouchableOpacity style={styles.createnew} onPress={this.back}>
-                    <Image style={{ width: 50, height: 50 }} source={require('./ico/back.png')} />
-                  </TouchableOpacity>
+                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'center' }}>Tourist Offer Name</Text>
+                <View style={styles.inputView}>
+                  <Text style={{ fontSize: 16, color: '#1c2338' }}>{this.state.Pname}</Text>
                 </View>
+
+                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'center' }}>Tourist Offer Date</Text>
+                <View style={styles.inputView}>
+                  <Text style={{ fontSize: 16, color: '#1c2338' }}>{this.state.Pdate}</Text>
+                </View>
+
+                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'center' }}>Tourist Offer Price</Text>
+                <View style={styles.inputView}>
+                  <Text style={{ fontSize: 16, color: '#1c2338' }}>{this.state.Pprice}</Text>
+                </View>
+
+                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'center' }}>Manager of Tourist Offer</Text>
+                <View style={styles.inputView}>
+                  <Text style={{ fontSize: 16, color: '#1c2338' }}>{this.state.Pmanager}</Text>
+                </View>
+
+                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'center' }}>Tourist Offer Description</Text>
+                <View style={styles.inputViewDesc}>
+                  <Text style={{ fontSize: 16, color: '#1c2338' }}>{this.state.Pdesc}</Text>
+                </View>
+
+
 
               </View>
             </ScrollView>
+
+            <TouchableOpacity style={{ bottom: 10, right: 10, zIndex: 3, position: 'absolute' }} onPress={this.back}>
+              <Image style={{ width: 50, height: 50 }} source={require('./ico/back.png')} />
+            </TouchableOpacity>
+
           </View>
         }
         {this.state.dashboard == 'user' &&
@@ -222,47 +253,47 @@ this.setState({dashboard: 'list'});
 
               <View style={{ width: Dimensions.get('window').width, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
 
-               <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>  Full Name</Text>
+                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>  Full Name</Text>
                 <TextInput style={styles.input}
                   underlineColorAndroid='rgba(0,0,0,0)'
                   placeholder={this.state.Uname}
-                  placeholderTextColor="black"
+                  placeholderTextColor="#1c2338"
                   returnKeyType="go"
                   ref={(input) => this.Uname = input}
                   onChangeText={Uname => this.setState({ Uname: Uname })}
                 />
-                <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>  Username</Text>
+                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>  Username</Text>
                 <TextInput style={styles.input}
                   underlineColorAndroid='rgba(0,0,0,0)'
                   placeholder={this.state.Uusername}
-                  placeholderTextColor="black"
+                  placeholderTextColor="#1c2338"
                   returnKeyType="go"
                   ref={(input) => this.Uusername = input}
                   onChangeText={Uusername => this.setState({ Uusername: Uusername })}
                 />
-                <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>  Password</Text>
+                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>  Password</Text>
                 <TextInput style={styles.input}
                   underlineColorAndroid='rgba(0,0,0,0)'
-                  placeholderTextColor="black"
+                  placeholderTextColor="#1c2338"
                   returnKeyType="go"
                   ref={(input) => this.Upassword = input}
                   secureTextEntry={true}
                   onChangeText={Upassword => this.setState({ Upassword: Upassword })}
                 />
-                <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}> Address</Text>
+                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}> Address</Text>
                 <TextInput style={styles.input}
                   underlineColorAndroid='rgba(0,0,0,0)'
                   placeholder={this.state.Uaddress}
-                  placeholderTextColor="black"
+                  placeholderTextColor="#1c2338"
                   returnKeyType="go"
                   ref={(input) => this.Uaddress = input}
                   onChangeText={Uaddress => this.setState({ Uaddress: Uaddress })}
                 />
-                <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>Picture Url</Text>
+                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>Picture Url</Text>
                 <TextInput style={styles.input}
                   underlineColorAndroid='rgba(0,0,0,0)'
                   placeholder={this.state.Uimg}
-                  placeholderTextColor="black"
+                  placeholderTextColor="#1c2338"
                   returnKeyType="go"
                   ref={(input) => this.Uimg = input}
                   onChangeText={Uimg => this.setState({ Uimg: Uimg })}
@@ -274,6 +305,12 @@ this.setState({dashboard: 'list'});
 
               </View>
             </ScrollView>
+
+
+            <TouchableOpacity style={{ bottom: 10, right: 10, zIndex: 3, position: 'absolute' }} onPress={this.back}>
+              <Image style={{ width: 50, height: 50 }} source={require('./ico/back.png')} />
+            </TouchableOpacity>
+
           </View>
         }
 
@@ -287,7 +324,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     width: '100%',
-    backgroundColor: '#e8e8e8',
+    backgroundColor: '#fdf3ee',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -297,7 +334,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#f85959',
+    backgroundColor: '#f08a5d',
   },
 
 
@@ -332,7 +369,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     paddingBottom: 20,
-    color: 'white'
+    color: '#35446b'
   },
 
   body: {
@@ -344,7 +381,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    backgroundColor: '#e8e8e8'
+    backgroundColor: '#fdf3ee'
   },
 
   listView: {
@@ -365,11 +402,11 @@ const styles = StyleSheet.create({
 
   book: {
     flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: 2,
-        width: '100%',
-        height: 32
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 2,
+    width: '100%',
+    height: 32
   },
 
   name: {
@@ -379,9 +416,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  destText: { flex: 6,
+  destText: {
+    flex: 6,
     textAlign: 'left',
-    color: 'black',
+    color: '#1c2338',
     alignSelf: 'center',
     paddingTop: 5,
     width: '100%',
@@ -401,57 +439,39 @@ const styles = StyleSheet.create({
     fontSize: 18,
     width: '100%',
     textAlign: 'left',
-    color: '#f85959',
+    color: '#35446b',
     fontWeight: 'bold',
     paddingBottom: 10
-},
+  },
 
-createnew: {
+  createnew: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#e8e8e8',
+    backgroundColor: '#fdf3ee',
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
     margin: 15
-},
+  },
 
-createnewtext: {
+  createnewtext: {
     color: 'white',
     textAlign: 'center',
     paddingBottom: 3,
     paddingLeft: 2,
     fontSize: 14,
     fontWeight: 'bold'
-},
+  },
 
-newbtn: {
+  newbtn: {
     alignItems: 'flex-end',
     paddingRight: 10,
     width: '100%',
     height: 70,
-    backgroundColor: '#e8e8e8',
+    backgroundColor: '#fdf3ee',
     justifyContent: 'flex-end'
-},
+  },
 
-tab: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#f85959',
-    margin: 2,
-},
-
-tabView: {
-    width: '100%',
-    height: 50,
-    flexDirection: 'row',
-    flex: 1.5,
-    backgroundColor: '#e8e8e8'
-},
-
-input: {
+  input: {
     width: Dimensions.get('window').width,
     height: 45,
     marginBottom: 5,
@@ -461,26 +481,79 @@ input: {
     paddingLeft: 10,
     borderBottomWidth: 2,
     borderColor: 'gray'
-},
+  },
 
-submitBtn: {
+  inputView: {
+    width: Dimensions.get('window').width,
+    height: 45,
+    marginBottom: 5,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    padding: 0,
+    paddingLeft: 10,
+    borderBottomWidth: 2,
+    borderColor: 'gray'
+  },
+
+  inputViewDesc: {
+    width: Dimensions.get('window').width,
+    height: 150,
+    marginBottom: 5,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    padding: 0,
+    paddingLeft: 10,
+    borderBottomWidth: 2,
+    borderColor: 'gray'
+  },
+
+  inputDesc: {
+    width: Dimensions.get('window').width,
+    height: 150,
+    marginBottom: 5,
+    backgroundColor: 'white',
+    textAlign: 'left',
+    padding: 0,
+    paddingLeft: 10,
+    borderBottomWidth: 2,
+    borderColor: 'gray'
+  },
+
+  submitBtn: {
     width: 120,
     height: 40,
     marginTop: 15,
-    backgroundColor: '#f85959',
+    backgroundColor: '#f08a5d',
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
     borderRadius: 7,
-},
+  },
 
-submitText: {
+  submitText: {
     color: 'white',
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 18
+  },
+
+  tab: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#f08a5d',
+    margin: 2,
 },
-
-
+tabView: {
+    width: '100%',
+    height: 50,
+    flexDirection: 'row',
+    flex: 1.5,
+    backgroundColor: '#fdf3ee'
+},
 
 })

@@ -8,18 +8,18 @@ export default class Ponuda extends React.Component {
         Pdesc: '',
         Pimg: '',
         Pdate: '',
-        Porganisator: '',
+        Pmanager: '',
         Pprice: ''
     }
 
     componentDidMount() {
-        this.setState({ Pname: this.props.Pname, Pdate: this.props.Pdate, Pprice: this.props.Pprice, Porganisator: this.props.Porganisator, Pdesc: this.props.Pdesc, Pimg: this.props.Pimg })
+        this.setState({ Pname: this.props.Pname, Pdate: this.props.Pdate, Pprice: this.props.Pprice, Pmanager: this.props.Pmanager, Pdesc: this.props.Pdesc, Pimg: this.props.Pimg })
     }
 
     submitTrip = () => {
-        let newTrip = { img: this.state.Pimg, name: this.state.Pname, desc: this.state.Pdesc, date: this.state.Pdate,  organisator: this.state.Porganisator, price: this.state.Pprice};
+        let newTrip = { img: this.state.Pimg, name: this.state.Pname, desc: this.state.Pdesc, date: this.state.Pdate,  manager: this.state.Pmanager, price: this.state.Pprice};
         global.user.push(newTrip);
-        Actions.organisator();
+        Actions.manager();
     }
 
     render() {
@@ -85,14 +85,14 @@ export default class Ponuda extends React.Component {
                                 ref={(input) => this.Pprice = input}
                                 onChangeText={Pprice => this.setState({ Pprice: Pprice })}
                             />
-                            <Text style={{ padding: 10, color: '#F0FFF3', fontWeight: 'bold', textAlign: 'center' }}>Organisator of Journey</Text>
+                            <Text style={{ padding: 10, color: '#F0FFF3', fontWeight: 'bold', textAlign: 'center' }}>manager of Journey</Text>
                             <TextInput style={styles.input}
                                 underlineColorAndroid='rgba(0,0,0,0)'
-                                placeholder={this.props.Porganisator}
+                                placeholder={this.props.Pmanager}
                                 placeholderTextColor="#2f4775"
                                 returnKeyType="go"
-                                ref={(input) => this.Porganisator = input}
-                                onChangeText={Porganisator => this.setState({ Porganisator: Porganisator })}
+                                ref={(input) => this.Pmanager = input}
+                                onChangeText={Pmanager => this.setState({ Pmanager: Pmanager })}
                             />
                             <Text style={{ padding: 10, color: '#F0FFF3', fontWeight: 'bold', textAlign: 'center' }}>Journey Description</Text>
                             <TextInput style={styles.inputDesc}

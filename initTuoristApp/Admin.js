@@ -55,13 +55,13 @@ export default class Admin extends React.Component {
     submitUser = () => {
         if (this.state.Uname != '' && this.state.Upassword != '' && this.state.Uusername != '') {
             if (this.state.Uimg == '') {
-                let newUser = { img: 'http://www.cmcstir.org/wp-content/uploads/2013/07/img08.jpg', name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'organisator' };
+                let newUser = { img: 'http://www.cmcstir.org/wp-content/uploads/2013/07/img08.jpg', name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'manager' };
                 let list = this.state.users;
                 list.push(newUser);
                 JSON.stringify(list, null, ' ');
                 this.setState({ users: list, dashboard: 'list' });
             } else {
-                let newUser = { img: this.state.Uimg, name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'organisator' };
+                let newUser = { img: this.state.Uimg, name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'manager' };
                 let list = this.state.users;
                 list.push(newUser);
                 JSON.stringify(list, null, ' ');
@@ -78,7 +78,7 @@ export default class Admin extends React.Component {
             return <View key={i} style={{ flex: 1, flexDirection: 'row', width: '100%', height: 37, borderBottomWidth: 1, borderBottomColor: '#928A97', justifyContent: 'center' }}>
                 <Text style={styles.destText}>{e.name}</Text>
                 <TouchableOpacity style={styles.delete} onPress={() => { this.deleteOffer(e.name) }}>
-                    <Image source={require('./ico/delete.png')} />
+                    <Image style={{ width: 32, height: 32 }} source={require('./ico/delete.png')} />
                 </TouchableOpacity>
             </View>
         })
@@ -90,20 +90,20 @@ export default class Admin extends React.Component {
                 return <View key={i} style={{ flex: 1, flexDirection: 'row', width: '100%', height: 37, borderBottomWidth: 1, borderBottomColor: '#928A97', justifyContent: 'center' }}>
                     <Text style={styles.destText}>{e.name}</Text>
                     <TouchableOpacity style={styles.delete} onPress={() => { this.deletedUser(e.name) }}>
-                        <Image source={require('./ico/delete.png')} />
+                        <Image style={{ width: 32, height: 32 }} source={require('./ico/delete.png')} />
                     </TouchableOpacity>
                 </View>
             }
         })
     }
 
-    listOrganisators() {
+    listmanagers() {
         return this.state.users.map((e, i) => {
-            if (e.type == 'organisator') {
+            if (e.type == 'manager') {
                 return <View key={i} style={{ flex: 1, flexDirection: 'row', width: '100%', height: 37, borderBottomWidth: 1, borderBottomColor: '#928A97', justifyContent: 'center' }}>
                     <Text style={styles.destText}>{e.name}</Text>
                     <TouchableOpacity style={styles.delete} onPress={() => { this.deletedUser(e.name) }}>
-                        <Image source={require('./ico/delete.png')} />
+                        <Image style={{ width: 32, height: 32 }} source={require('./ico/delete.png')} />
                     </TouchableOpacity>
                 </View>
             }
@@ -119,7 +119,7 @@ export default class Admin extends React.Component {
                 <View style={styles.header}>
                     <View style={styles.logout}>
                         <TouchableOpacity style={styles.logoutbtn} onPress={this.logout}>
-                            <Image source={require('./ico/log.png')} />
+                            <Image style={{ width: 32, height: 32 }} source={require('./ico/log.png')} />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.headerTitle}>
@@ -158,14 +158,14 @@ export default class Admin extends React.Component {
                                 <View style={{ flex: 1, width: '100%', height: '100%', margin: 7 }}>
                                     <Text style={styles.listTitle}>List of Tour Managers:</Text>
                                     <ScrollView>
-                                        {this.listOrganisators()}
+                                        {this.listmanagers()}
                                     </ScrollView>
 
-                                    <View style={styles.newbtn}>
-                                        <TouchableOpacity style={styles.createnew} onPress={this.createUser}>
-                                            <Image style={{ width: 50, height: 50 }} source={require('./ico/add.png')} />
+                                    
+                                        <TouchableOpacity style={{zIndex: 3, position: 'absolute', bottom: 5, right: 15}} onPress={this.createUser}>
+                                            <Image style={{ width: 60, height: 60 }} source={require('./ico/add.png')} />
                                         </TouchableOpacity>
-                                    </View>
+                                
                                 </View>
                             }
 
@@ -174,15 +174,15 @@ export default class Admin extends React.Component {
                         <View style={styles.tabView} >
 
                             <TouchableOpacity style={styles.tab} onPress={() => this.setState({ selectedTab: 'managers' })}>
-                                <Image source={this.state.selectedTab == 'managers' ? require('./ico/manager.png') : require('./ico/managerOff.png')} />
+                                <Image style={{ width: 32, height: 32 }} source={this.state.selectedTab == 'managers' ? require('./ico/manager.png') : require('./ico/managerOff.png')} />
                             </TouchableOpacity>
 
                             <TouchableOpacity style={styles.tab} onPress={() => this.setState({ selectedTab: 'students' })}>
-                                <Image source={this.state.selectedTab == 'students' ? require('./ico/student.png') : require('./ico/studentOff.png')} />
+                                <Image style={{ width: 32, height: 32 }} source={this.state.selectedTab == 'students' ? require('./ico/student.png') : require('./ico/studentOff.png')} />
                             </TouchableOpacity>
 
                             <TouchableOpacity style={styles.tab} onPress={() => this.setState({ selectedTab: 'offers' })}>
-                                <Image source={this.state.selectedTab == 'offers' ? require('./ico/tour.png') : require('./ico/tourOff.png')} />
+                                <Image style={{ width: 32, height: 32 }} source={this.state.selectedTab == 'offers' ? require('./ico/tour.png') : require('./ico/tourOff.png')} />
                             </TouchableOpacity>
 
                         </View>
@@ -203,49 +203,49 @@ export default class Admin extends React.Component {
 
                             <View style={{ width: Dimensions.get('window').width, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
 
-                                <Text style={{ padding: 5, paddingBottom: 5, paddingTop: 10, color: 'black', fontStyle: 'italic', textAlign: 'left', fontSize: 14 }}> All fields marked with an asterisk (*) are required.</Text>
-                                <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>* Full Name</Text>
+                                <Text style={{ padding: 5, paddingBottom: 5, paddingTop: 10, color: '#1c2338', fontStyle: 'italic', textAlign: 'left', fontSize: 14 }}> All fields marked with an asterisk (*) are required.</Text>
+                                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>* Full Name</Text>
                                 <TextInput style={styles.input}
                                     underlineColorAndroid='rgba(0,0,0,0)'
                                     placeholder={this.state.Uname}
-                                    placeholderTextColor="black"
+                                    placeholderTextColor="#1c2338"
                                     returnKeyType="go"
                                     ref={(input) => this.Uname = input}
                                     onChangeText={Uname => this.setState({ Uname: Uname })}
                                 />
-                                <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>* Username</Text>
+                                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>* Username</Text>
                                 <TextInput style={styles.input}
                                     underlineColorAndroid='rgba(0,0,0,0)'
                                     placeholder={this.state.Uusername}
-                                    placeholderTextColor="black"
+                                    placeholderTextColor="#1c2338"
                                     returnKeyType="go"
                                     ref={(input) => this.Uusername = input}
                                     onChangeText={Uusername => this.setState({ Uusername: Uusername })}
                                 />
-                                <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>* Password</Text>
+                                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>* Password</Text>
                                 <TextInput style={styles.input}
                                     underlineColorAndroid='rgba(0,0,0,0)'
                                     placeholder={this.state.Upassword}
-                                    placeholderTextColor="black"
+                                    placeholderTextColor="#1c2338"
                                     returnKeyType="go"
                                     ref={(input) => this.Upassword = input}
                                     secureTextEntry={true}
                                     onChangeText={Upassword => this.setState({ Upassword: Upassword })}
                                 />
-                                <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}> Address</Text>
+                                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}> Address</Text>
                                 <TextInput style={styles.input}
                                     underlineColorAndroid='rgba(0,0,0,0)'
                                     placeholder={this.state.Uaddress}
-                                    placeholderTextColor="black"
+                                    placeholderTextColor="#1c2338"
                                     returnKeyType="go"
                                     ref={(input) => this.Uaddress = input}
                                     onChangeText={Uaddress => this.setState({ Uaddress: Uaddress })}
                                 />
-                                <Text style={{ padding: 10, color: 'black', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>Picture Url</Text>
+                                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>Picture Url</Text>
                                 <TextInput style={styles.input}
                                     underlineColorAndroid='rgba(0,0,0,0)'
                                     // placeholder={this.state.Uimg}
-                                    placeholderTextColor="black"
+                                    placeholderTextColor="#1c2338"
                                     returnKeyType="go"
                                     ref={(input) => this.Uimg = input}
                                     onChangeText={Uimg => this.setState({ Uimg: Uimg })}
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
         flex: 1,
         height: '100%',
         width: '100%',
-        backgroundColor: '#e8e8e8',
+        backgroundColor: '#fdf3ee',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#f85959',
+        backgroundColor: '#f08a5d',
     },
 
 
@@ -309,7 +309,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         paddingBottom: 20,
-        color: 'white'
+        color: '#35446b'
     },
 
     body: {
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
-        backgroundColor: '#e8e8e8'
+        backgroundColor: '#fdf3ee'
     },
 
     listView: {
@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
     destText: {
         flex: 6,
         textAlign: 'left',
-        color: 'black',
+        color: '#1c2338',
         alignSelf: 'center',
         paddingTop: 5,
         width: '100%',
@@ -369,15 +369,15 @@ const styles = StyleSheet.create({
         fontSize: 18,
         width: '100%',
         textAlign: 'left',
-        color: '#f85959',
+        color: '#35446b',
         fontWeight: 'bold',
         paddingBottom: 10
     },
 
     createnew: {
         width: '100%',
-        height: '100%',
-        backgroundColor: '#e8e8e8',
+        height: 62,
+        backgroundColor: '#fdf3ee',
         alignItems: 'flex-end',
         justifyContent: 'flex-end',
         margin: 15
@@ -396,8 +396,8 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         paddingRight: 10,
         width: '100%',
-        height: 70,
-        backgroundColor: '#e8e8e8',
+        height: 80,
+        backgroundColor: '#fdf3ee',
         justifyContent: 'flex-end'
     },
 
@@ -407,7 +407,7 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#f85959',
+        backgroundColor: '#f08a5d',
         margin: 2,
     },
 
@@ -416,7 +416,7 @@ const styles = StyleSheet.create({
         height: 50,
         flexDirection: 'row',
         flex: 1.5,
-        backgroundColor: '#e8e8e8'
+        backgroundColor: '#fdf3ee'
     },
 
     input: {
@@ -435,7 +435,7 @@ const styles = StyleSheet.create({
         width: 120,
         height: 40,
         marginTop: 15,
-        backgroundColor: '#f85959',
+        backgroundColor: '#f08a5d',
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
