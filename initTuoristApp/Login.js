@@ -30,7 +30,7 @@ export default class Login extends React.Component {
             return Actions.organisator({organisatorName: global.user[i].name})
             break;
           case 'student':
-            return Actions.student({studentName: global.user[i].name})
+            return Actions.student({studentName: global.user[i]})
             break;
         }
       }
@@ -57,7 +57,7 @@ export default class Login extends React.Component {
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Username"
-              placeholderTextColor="#3f507c"
+              placeholderTextColor="gray"
               returnKeyType="go"
               ref={(input) => this.username = input}
               onChangeText={username => this.setState({ username: username })}
@@ -66,7 +66,7 @@ export default class Login extends React.Component {
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Password"
               secureTextEntry={true}
-              placeholderTextColor="#3f507c"
+              placeholderTextColor="gray"
               returnKeyType="go"
               ref={(input) => this.password = input}
               onChangeText={password => this.setState({ password: password })}
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#f08a5d',
+    backgroundColor: '#e8e8e8',
   },
 
   titleView: {
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
 
   register: {
     fontSize: 17,
-    color: '#36456b',
+    color: '#f85959',
     fontWeight: 'bold'
   },
 
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
 
   footer: {
     textAlign: 'right',
-    color: '#3f507c',
+    color: '#f85959',
     alignSelf: 'flex-end',
     width: '100%',
     fontSize: 12
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     width: 230,
     height: 40,
     marginBottom: 15,
-    backgroundColor: '#FBE4DA',
+    backgroundColor: 'white',
     textAlign: 'center'
   },
 
@@ -149,28 +149,28 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     paddingBottom: 20,
-    color: '#36456b',
+    color: '#f85959',
   },
 
   subtitle: {
     fontSize: 17,
-    color: '#3f507c',
+    color: 'gray',
   },
 
   login: {
     width: 85,
     height: 30,
     marginTop: 5,
-    backgroundColor: '#36456b',
+    backgroundColor: '#f85959',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 7,
-    borderColor: '#2d3a5a',
+    borderColor: 'gray',
     borderWidth: 1
   },
 
   loginText: {
-    color: '#ee7946',
+    color: 'white',
     textAlign: 'center',
     fontWeight: 'bold'
   }

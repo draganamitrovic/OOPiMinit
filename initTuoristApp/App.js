@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Router } from 'react-native-router-flux';
 import Routes from './Router';
-import Firebase from './Firebase';
 import Realm from 'realm';
 
 export default class App extends React.Component {
@@ -57,10 +56,8 @@ export default class App extends React.Component {
       // {img: 'http://www.iconhot.com/icon/png/file-icons-vs-2/256/jpg-2.png', name: 'Egypt - 14 days', date: '15.9.2018-29.9.2018', price: '12400', organisator: 'lia', desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In scelerisque tortor vel tincidunt tempus. Vivamus at molestie enim. Vivamus eleifend tempor nisl a laoreet. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras luctus lobortis quam eget volutpat.', },
     
     ];
-
-    // global.deletedUser = [];
-
-    // global.deletedTrip = [];
+    
+    global.booked = [];
   }
 
   // componentWillMount(){

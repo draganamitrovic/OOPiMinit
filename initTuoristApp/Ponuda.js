@@ -16,6 +16,12 @@ export default class Ponuda extends React.Component {
         this.setState({ Pname: this.props.Pname, Pdate: this.props.Pdate, Pprice: this.props.Pprice, Porganisator: this.props.Porganisator, Pdesc: this.props.Pdesc, Pimg: this.props.Pimg })
     }
 
+    submitTrip = () => {
+        let newTrip = { img: this.state.Pimg, name: this.state.Pname, desc: this.state.Pdesc, date: this.state.Pdate,  organisator: this.state.Porganisator, price: this.state.Pprice};
+        global.user.push(newTrip);
+        Actions.organisator();
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -98,7 +104,7 @@ export default class Ponuda extends React.Component {
                                 onChangeText={Pdesc => this.setState({ Pdesc: Pdesc })}
                                 multiline={true}
                             />
-                            <TouchableOpacity style={styles.submitBtn} onPress={this.login}>
+                            <TouchableOpacity style={styles.submitBtn} onPress={this.submitTrip}>
                                 <Text style={styles.submitText}> Submit Changes </Text>
                             </TouchableOpacity>
 
