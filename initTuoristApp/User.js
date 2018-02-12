@@ -7,9 +7,9 @@ export default class User extends React.Component {
     state = {
         Uname: '',
         Uaddress: '',
-        Uusername: 'nisam setovan',
+        Uusername: '',
         Upassword: '',
-        Uimg: '',
+        Uimg: 'http://www.cmcstir.org/wp-content/uploads/2013/07/img08.jpg',
         user: '',
         usernameLogin: ''
     }
@@ -37,14 +37,14 @@ export default class User extends React.Component {
         switch (this.state.user) {
             case 'admin':
                 {
-                    let newUser = { img: this.state.Uimg, name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'organisator' };
+                    let newUser = { img: this.state.Uimg, name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'manager' };
                     global.user.push(newUser);
-                    Actions.admin({ newUser: newUser });
+                    Actions.admin();
                 }
                 break;
             case 'student':
                 {
-                    let newUser = { img: this.state.Uimg, name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'organisator' };
+                    let newUser = { img: this.state.Uimg, name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'manager' };
                     global.user.push(newUser);
                     Actions.admin({ newUser: newUser });
                 }
@@ -54,7 +54,7 @@ export default class User extends React.Component {
                     global.user.map((e) => {
                         if (e.name == this.state.name) {
                             global.user.pop(e);
-                            let newUser = { img: this.state.Uimg, name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'organisator' };
+                            let newUser = { img: this.state.Uimg, name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'manager' };
                             global.user.push(newUser);
                             Actions.admin({ newUser: newUser });
                         }
@@ -137,6 +137,7 @@ export default class User extends React.Component {
                                 placeholderTextColor="#475b8d"
                                 returnKeyType="go"
                                 ref={(input) => this.Upassword = input}
+                                secureTextEntry={true}
                                 onChangeText={Upassword => this.setState({ Upassword: Upassword })}
                             />
                             <TouchableOpacity style={styles.submitBtn} onPress={this.submitUser}>

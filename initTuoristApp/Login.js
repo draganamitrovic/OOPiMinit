@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, StatusBar, ScrollView, Image, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-//import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 //import { Firebase } from './Firebase';
 //import { Dialog } from 'react-native-simple-dialogs';
 
@@ -26,11 +26,11 @@ export default class Login extends React.Component {
           case 'admin':
             return Actions.admin()
             break;
-          case 'organisator':
-            return Actions.organisator({organisatorName: global.user[i].name})
+          case 'manager':
+            return Actions.manager({managerName: global.user[i].name})
             break;
           case 'student':
-            return Actions.student({studentName: global.user[i].name})
+            return Actions.student({studentName: global.user[i]})
             break;
         }
       }
@@ -52,12 +52,12 @@ export default class Login extends React.Component {
           <Text style={styles.register} onPress={this.signup}>Register</Text></Text>
         </View>
 
-        <ScrollView>
+        <KeyboardAwareScrollView>
           <View style={styles.formView}>
             <TextInput style={styles.input}
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Username"
-              placeholderTextColor="#3f507c"
+              placeholderTextColor="#35446b"
               returnKeyType="go"
               ref={(input) => this.username = input}
               onChangeText={username => this.setState({ username: username })}
@@ -66,7 +66,7 @@ export default class Login extends React.Component {
               underlineColorAndroid='rgba(0,0,0,0)'
               placeholder="Password"
               secureTextEntry={true}
-              placeholderTextColor="#3f507c"
+              placeholderTextColor="#35446b"
               returnKeyType="go"
               ref={(input) => this.password = input}
               onChangeText={password => this.setState({ password: password })}
@@ -76,7 +76,7 @@ export default class Login extends React.Component {
               <Text style={styles.loginText}> Login </Text>
             </TouchableOpacity>
           </View>
-        </ScrollView>
+       </KeyboardAwareScrollView>
 
         <View style={styles.footerView}>
           <Text style={styles.footer}>by Dragana Mitrovic</Text>
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
 
   register: {
     fontSize: 17,
-    color: '#36456b',
+    color: '#1c2338',
     fontWeight: 'bold'
   },
 
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
 
   footer: {
     textAlign: 'right',
-    color: '#3f507c',
+    color: '#1c2338',
     alignSelf: 'flex-end',
     width: '100%',
     fontSize: 12
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     width: 230,
     height: 40,
     marginBottom: 15,
-    backgroundColor: '#FBE4DA',
+    backgroundColor: '#fdf3ee',
     textAlign: 'center'
   },
 
@@ -149,28 +149,28 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     paddingBottom: 20,
-    color: '#36456b',
+    color: '#1c2338',
   },
 
   subtitle: {
     fontSize: 17,
-    color: '#3f507c',
+    color: '#35446b',
   },
 
   login: {
     width: 85,
     height: 30,
     marginTop: 5,
-    backgroundColor: '#36456b',
+    backgroundColor: '#1c2338',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 7,
-    borderColor: '#2d3a5a',
+    borderColor: '#35446b',
     borderWidth: 1
   },
 
   loginText: {
-    color: '#ee7946',
+    color: '#f08a5d',
     textAlign: 'center',
     fontWeight: 'bold'
   }

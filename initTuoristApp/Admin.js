@@ -1,24 +1,36 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { Alert, Dimensions, View, StyleSheet, Text, TouchableOpacity, ScrollView, Image, TextInput } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import TabNavigator from 'react-native-tab-navigator';
 
 export default class Admin extends React.Component {
 
     state = {
+        dashboard: 'list',
         selectedTab: 'managers',
         offers: [],
         users: [],
+
+        Uname: '',
+        Uaddress: '',
+        Uusername: '',
+        Upassword: '',
+        Uimg: 'http://www.cmcstir.org/wp-content/uploads/2013/07/img08.jpg',
     }
 
     componentWillMount() {
-    //    let  users = global.user.push(this.props.newUser)
-    //     this.setState({ offers: global.trip, users: users });
-    this.setState({ offers: global.trip, users: global.user });
+        this.setState({ offers: global.trip, users: global.user });
+    }
+
+    componentWillUnmount() {
+        global.user = [];
+        global.user = this.state.users;
+        global.trip = [];
+        global.trip = this.state.offers;
     }
 
     logout() {
-        Actions.login();
+        Actions.reset('login');
     }
 
     deleteOffer = (name) => {
@@ -35,17 +47,38 @@ export default class Admin extends React.Component {
         this.setState({ users: deletedUser })
     }
 
-    createUser() {
+    createUser = () => {
         //create user using states
-        Actions.user({user: 'admin'});
+        this.setState({ dashboard: 'user' });
+    }
+
+    submitUser = () => {
+        if (this.state.Uname != '' && this.state.Upassword != '' && this.state.Uusername != '') {
+            if (this.state.Uimg == '') {
+                let newUser = { img: 'http://www.cmcstir.org/wp-content/uploads/2013/07/img08.jpg', name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'manager' };
+                let list = this.state.users;
+                list.push(newUser);
+                JSON.stringify(list, null, ' ');
+                this.setState({ users: list, dashboard: 'list' });
+            } else {
+                let newUser = { img: this.state.Uimg, name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'manager' };
+                let list = this.state.users;
+                list.push(newUser);
+                JSON.stringify(list, null, ' ');
+                this.setState({ users: list, dashboard: 'list' });
+            }
+
+        } else {
+            Alert.alert('You have to fill in Name, Username and Password fields to submit.')
+        }
     }
 
     listItems() {
         return this.state.offers.map((e, i) => {
-            return <View key={i} style={{ flex: 1, flexDirection: 'row', width: '100%', height: 30, borderBottomWidth: 1, borderBottomColor: '#928A97' }}>
+            return <View key={i} style={{ flex: 1, flexDirection: 'row', width: '100%', height: 37, borderBottomWidth: 1, borderBottomColor: '#928A97', justifyContent: 'center' }}>
                 <Text style={styles.destText}>{e.name}</Text>
                 <TouchableOpacity style={styles.delete} onPress={() => { this.deleteOffer(e.name) }}>
-                    <Text style={styles.deleteText}> DELETE </Text>
+                    <Image style={{ width: 32, height: 32 }} source={require('./ico/delete.png')} />
                 </TouchableOpacity>
             </View>
         })
@@ -54,23 +87,23 @@ export default class Admin extends React.Component {
     listStudents() {
         return this.state.users.map((e, i) => {
             if (e.type == 'student') {
-                return <View key={i} style={{ flex: 1, flexDirection: 'row', width: '100%', height: 30, borderBottomWidth: 1, borderBottomColor: '#928A97' }}>
+                return <View key={i} style={{ flex: 1, flexDirection: 'row', width: '100%', height: 37, borderBottomWidth: 1, borderBottomColor: '#928A97', justifyContent: 'center' }}>
                     <Text style={styles.destText}>{e.name}</Text>
                     <TouchableOpacity style={styles.delete} onPress={() => { this.deletedUser(e.name) }}>
-                        <Text style={styles.deleteText}> DELETE </Text>
+                        <Image style={{ width: 32, height: 32 }} source={require('./ico/delete.png')} />
                     </TouchableOpacity>
                 </View>
             }
         })
     }
 
-    listOrganisators() {
+    listmanagers() {
         return this.state.users.map((e, i) => {
-            if (e.type == 'organisator') {
-                return <View key={i} style={{ flex: 1, flexDirection: 'row', width: '100%', height: 30, borderBottomWidth: 1, borderBottomColor: '#928A97' }}>
+            if (e.type == 'manager') {
+                return <View key={i} style={{ flex: 1, flexDirection: 'row', width: '100%', height: 37, borderBottomWidth: 1, borderBottomColor: '#928A97', justifyContent: 'center' }}>
                     <Text style={styles.destText}>{e.name}</Text>
                     <TouchableOpacity style={styles.delete} onPress={() => { this.deletedUser(e.name) }}>
-                        <Text style={styles.deleteText}> DELETE </Text>
+                        <Image style={{ width: 32, height: 32 }} source={require('./ico/delete.png')} />
                     </TouchableOpacity>
                 </View>
             }
@@ -86,7 +119,7 @@ export default class Admin extends React.Component {
                 <View style={styles.header}>
                     <View style={styles.logout}>
                         <TouchableOpacity style={styles.logoutbtn} onPress={this.logout}>
-                            <Text style={styles.logoutText}> Log out </Text>
+                            <Image style={{ width: 32, height: 32 }} source={require('./ico/log.png')} />
                         </TouchableOpacity>
                     </View>
                     <View style={styles.headerTitle}>
@@ -94,64 +127,139 @@ export default class Admin extends React.Component {
                     </View>
                 </View>
 
-                <View style={styles.tabView} >
-
-                    <TouchableOpacity style={styles.tab} onPress={() => this.setState({ selectedTab: 'managers' })}>
-                        <Image source={this.state.selectedTab == 'managers' ? require('./ico/manager.png') : require('./ico/managerOff.png')} />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.tab} onPress={() => this.setState({ selectedTab: 'students' })}>
-                        <Image source={this.state.selectedTab == 'students' ? require('./ico/student.png') : require('./ico/studentOff.png')} />
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.tab} onPress={() => this.setState({ selectedTab: 'offers' })}>
-                        <Image source={this.state.selectedTab == 'offers' ? require('./ico/tour.png') : require('./ico/tourOff.png')} />
-                    </TouchableOpacity>
-
-                </View>
 
 
-                <View style={styles.body}>
+                {this.state.dashboard == 'list' &&
 
-                    {this.state.selectedTab == 'offers' &&
-                        <View style={{ flex: 1, width: '100%', height: '100%', margin: 10 }}>
-                            <Text style={styles.listTitle}>List of tourist offers:</Text>
-                            <ScrollView>
-                                {this.listItems()}
-                            </ScrollView>
+                    <View style={{ flex: 15, justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}>
+
+                        <View style={styles.body}>
+
+                            {this.state.selectedTab == 'offers' &&
+                                <View style={{ flex: 1, width: '100%', height: '100%', margin: 7 }}>
+                                    <Text style={styles.listTitle}>List of tourist offers:</Text>
+                                    <ScrollView>
+                                        {this.listItems()}
+                                    </ScrollView>
+
+                                </View>
+                            }
+
+                            {this.state.selectedTab == 'students' &&
+                                <View style={{ flex: 1, width: '100%', height: '100%', margin: 7 }}>
+                                    <Text style={styles.listTitle}>List of Registreted Students:</Text>
+                                    <ScrollView>
+                                        {this.listStudents()}
+                                    </ScrollView>
+                                </View>
+                            }
+
+                            {this.state.selectedTab == 'managers' &&
+                                <View style={{ flex: 1, width: '100%', height: '100%', margin: 7 }}>
+                                    <Text style={styles.listTitle}>List of Tour Managers:</Text>
+                                    <ScrollView>
+                                        {this.listmanagers()}
+                                    </ScrollView>
+
+                                    
+                                        <TouchableOpacity style={{zIndex: 3, position: 'absolute', bottom: 5, right: 15}} onPress={this.createUser}>
+                                            <Image style={{ width: 60, height: 60 }} source={require('./ico/add.png')} />
+                                        </TouchableOpacity>
+                                
+                                </View>
+                            }
 
                         </View>
-                    }
 
-                    {this.state.selectedTab == 'students' &&
-                        <View style={{ flex: 1, width: '100%', height: '100%', margin: 7 }}>
-                            <Text style={styles.listTitle}>List of Registreted Students:</Text>
-                            <ScrollView>
-                                {this.listStudents()}
-                            </ScrollView>
+                        <View style={styles.tabView} >
+
+                            <TouchableOpacity style={styles.tab} onPress={() => this.setState({ selectedTab: 'managers' })}>
+                                <Image style={{ width: 32, height: 32 }} source={this.state.selectedTab == 'managers' ? require('./ico/manager.png') : require('./ico/managerOff.png')} />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={styles.tab} onPress={() => this.setState({ selectedTab: 'students' })}>
+                                <Image style={{ width: 32, height: 32 }} source={this.state.selectedTab == 'students' ? require('./ico/student.png') : require('./ico/studentOff.png')} />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={styles.tab} onPress={() => this.setState({ selectedTab: 'offers' })}>
+                                <Image style={{ width: 32, height: 32 }} source={this.state.selectedTab == 'offers' ? require('./ico/tour.png') : require('./ico/tourOff.png')} />
+                            </TouchableOpacity>
+
                         </View>
-                    }
+                    </View>
+                }
 
-                    {this.state.selectedTab == 'managers' &&
-                        <View style={{ flex: 1, width: '100%', height: '100%', margin: 7 }}>
-                            <Text style={styles.listTitle}>List of Tour Managers:</Text>
-                            <ScrollView>
-                                {this.listOrganisators()}
-                            </ScrollView>
+                {this.state.dashboard == 'user' &&
 
-                            <View style={styles.newbtn}>
-                                <TouchableOpacity style={styles.createnew} onPress={this.logout}>
-                                    <Text style={styles.createnewtext} onPress={this.createUser}> Create New </Text>
-                                </TouchableOpacity>
+                    <View style={styles.body}>
+                        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ width: Dimensions.get('window').width, alignItems: 'flex-start' }} >
+                            <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center', alignSelf: 'center' }}>
+                                <Image
+                                    style={{ width: 200, height: 200, borderRadius: 5 }}
+                                    source={{ uri: this.state.Uimg }}
+                                />
+
                             </View>
-                        </View>
-                    }
 
-                </View>
+                            <View style={{ width: Dimensions.get('window').width, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
 
-                <View style={styles.footer}>
-                    <Text style={styles.footerText}>by Dragana Mitrovic</Text>
-                </View>
+                                <Text style={{ padding: 5, paddingBottom: 5, paddingTop: 10, color: '#1c2338', fontStyle: 'italic', textAlign: 'left', fontSize: 14 }}> All fields marked with an asterisk (*) are required.</Text>
+                                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>* Full Name</Text>
+                                <TextInput style={styles.input}
+                                    underlineColorAndroid='rgba(0,0,0,0)'
+                                    placeholder={this.state.Uname}
+                                    placeholderTextColor="#1c2338"
+                                    returnKeyType="go"
+                                    ref={(input) => this.Uname = input}
+                                    onChangeText={Uname => this.setState({ Uname: Uname })}
+                                />
+                                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>* Username</Text>
+                                <TextInput style={styles.input}
+                                    underlineColorAndroid='rgba(0,0,0,0)'
+                                    placeholder={this.state.Uusername}
+                                    placeholderTextColor="#1c2338"
+                                    returnKeyType="go"
+                                    ref={(input) => this.Uusername = input}
+                                    onChangeText={Uusername => this.setState({ Uusername: Uusername })}
+                                />
+                                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>* Password</Text>
+                                <TextInput style={styles.input}
+                                    underlineColorAndroid='rgba(0,0,0,0)'
+                                    placeholder={this.state.Upassword}
+                                    placeholderTextColor="#1c2338"
+                                    returnKeyType="go"
+                                    ref={(input) => this.Upassword = input}
+                                    secureTextEntry={true}
+                                    onChangeText={Upassword => this.setState({ Upassword: Upassword })}
+                                />
+                                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}> Address</Text>
+                                <TextInput style={styles.input}
+                                    underlineColorAndroid='rgba(0,0,0,0)'
+                                    placeholder={this.state.Uaddress}
+                                    placeholderTextColor="#1c2338"
+                                    returnKeyType="go"
+                                    ref={(input) => this.Uaddress = input}
+                                    onChangeText={Uaddress => this.setState({ Uaddress: Uaddress })}
+                                />
+                                <Text style={{ padding: 10, color: '#1c2338', fontWeight: 'bold', textAlign: 'left', fontSize: 16 }}>Picture Url</Text>
+                                <TextInput style={styles.input}
+                                    underlineColorAndroid='rgba(0,0,0,0)'
+                                    // placeholder={this.state.Uimg}
+                                    placeholderTextColor="#1c2338"
+                                    returnKeyType="go"
+                                    ref={(input) => this.Uimg = input}
+                                    onChangeText={Uimg => this.setState({ Uimg: Uimg })}
+                                />
+
+                                <TouchableOpacity style={styles.submitBtn} onPress={this.submitUser}>
+                                    <Text style={styles.submitText}> Submit </Text>
+                                </TouchableOpacity>
+
+                            </View>
+                        </ScrollView>
+                    </View>
+
+                }
 
             </View>
         )
@@ -161,13 +269,11 @@ export default class Admin extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        zIndex: 1,
         height: '100%',
         width: '100%',
-        backgroundColor: '#f4ac8c',
+        backgroundColor: '#fdf3ee',
         alignItems: 'center',
         justifyContent: 'center',
-        position: 'relative'
     },
 
     header: {
@@ -175,7 +281,7 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#2d3a5a',
+        backgroundColor: '#f08a5d',
     },
 
 
@@ -183,28 +289,13 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         alignItems: 'flex-end',
-        justifyContent: 'flex-start',
-        backgroundColor: '#2d3a5a',
+        justifyContent: 'flex-start'
     },
 
     logoutbtn: {
+        padding: 5,
         alignItems: 'center',
-        justifyContent: 'center',
-        width: 75,
-        height: 30,
-        borderBottomLeftRadius: 15,
-        backgroundColor: '#3f507c',
-        borderWidth: 2,
-        borderColor: '#2d3a5a'
-    },
-
-    logoutText: {
-        color: '#f08a5d',
-        textAlign: 'center',
-        paddingBottom: 3,
-        paddingLeft: 2,
-        fontSize: 16,
-        fontWeight: 'bold'
+        justifyContent: 'center'
     },
 
     headerTitle: {
@@ -218,19 +309,18 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         paddingBottom: 20,
-        color: '#ee7946'
+        color: '#35446b'
     },
 
     body: {
-        flex: 14,
+        flex: 15,
         height: '100%',
         width: '100%',
-        paddingLeft: 30,
-        paddingRight: 30,
         paddingBottom: 10,
-        paddingTop: 70,
+        paddingTop: 20,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
+        backgroundColor: '#fdf3ee'
     },
 
     listView: {
@@ -240,46 +330,13 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
 
-    details: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 50,
-        height: 25,
-        backgroundColor: '#3f507c',
-        margin: 10,
-        borderTopLeftRadius: 5,
-        borderBottomRightRadius: 5,
-    },
-
-    detailsText: {
-        color: '#ee7946',
-        textAlign: 'center',
-        paddingBottom: 3,
-        paddingLeft: 2,
-        fontSize: 12,
-        fontWeight: 'bold'
-    },
-
     delete: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        width: 60,
-        height: 25,
-        backgroundColor: '#36456b',
-        borderWidth: 2,
-        borderColor: '#3f507c',
         margin: 2,
-        borderTopLeftRadius: 5,
-        borderBottomRightRadius: 5,
-    },
-
-    deleteText: {
-        color: '#ee7946',
-        textAlign: 'center',
-        paddingBottom: 3,
-        paddingLeft: 2,
-        fontSize: 12,
-        fontWeight: 'bold'
+        width: '100%',
+        height: 32
     },
 
     name: {
@@ -290,13 +347,15 @@ const styles = StyleSheet.create({
     },
 
     destText: {
+        flex: 6,
         textAlign: 'left',
-        color: '#252f49',
+        color: '#1c2338',
         alignSelf: 'center',
+        paddingTop: 5,
         width: '100%',
         fontSize: 16,
-        fontWeight: 'bold',
-        width: 270
+        width: '100%',
+        height: 35
     },
 
     listViewBtn: {
@@ -306,46 +365,26 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
 
-    footer: {
-        flex: 0.5,
-        justifyContent: 'flex-end',
-        alignItems: 'flex-end',
-        width: '100%',
-        padding: 10,
-        backgroundColor: '#f29b74'
-    },
-
-    footerText: {
-        textAlign: 'right',
-        color: '#3f507c',
-        alignSelf: 'flex-end',
-        width: '100%',
-        fontSize: 12
-    },
-
     listTitle: {
         fontSize: 18,
         width: '100%',
         textAlign: 'left',
-        color: '#252f49',
+        color: '#35446b',
         fontWeight: 'bold',
-        borderBottomWidth: 2,
-        borderBottomColor: '#928A97',
         paddingBottom: 10
     },
 
     createnew: {
-        width: 130,
-        height: 30,
-        backgroundColor: '#36456b',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 5,
-        marginTop: 15
+        width: '100%',
+        height: 62,
+        backgroundColor: '#fdf3ee',
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end',
+        margin: 15
     },
 
     createnewtext: {
-        color: '#ee7946',
+        color: 'white',
         textAlign: 'center',
         paddingBottom: 3,
         paddingLeft: 2,
@@ -354,8 +393,12 @@ const styles = StyleSheet.create({
     },
 
     newbtn: {
-        alignItems: 'center',
-        justifyContent: 'center'
+        alignItems: 'flex-end',
+        paddingRight: 10,
+        width: '100%',
+        height: 80,
+        backgroundColor: '#fdf3ee',
+        justifyContent: 'flex-end'
     },
 
     tab: {
@@ -364,23 +407,46 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#f4ac8c',
+        backgroundColor: '#f08a5d',
         margin: 2,
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        borderWidth: 1,
-        borderColor: '#f08a5d'
     },
 
     tabView: {
-        position: 'absolute',
-        top: '14.5%',
         width: '100%',
         height: 50,
         flexDirection: 'row',
-        flex: 1,
-        zIndex: 3,
-        backgroundColor: '#2d3a5a'
+        flex: 1.5,
+        backgroundColor: '#fdf3ee'
+    },
+
+    input: {
+        width: Dimensions.get('window').width,
+        height: 45,
+        marginBottom: 5,
+        backgroundColor: 'white',
+        textAlign: 'left',
+        padding: 0,
+        paddingLeft: 10,
+        borderBottomWidth: 2,
+        borderColor: 'gray'
+    },
+
+    submitBtn: {
+        width: 120,
+        height: 40,
+        marginTop: 15,
+        backgroundColor: '#f08a5d',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        borderRadius: 7,
+    },
+
+    submitText: {
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 18
     },
 
 
