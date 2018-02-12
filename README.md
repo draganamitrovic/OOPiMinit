@@ -1,4 +1,4 @@
-## Project fone for master studies 
+## Project done for master studies 
 
 # Course: Object oriented development and methodology
 
