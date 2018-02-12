@@ -31,16 +31,34 @@ export default class Organizator extends React.Component {
     }
 
     logout() {
-        Actions.reset('login');
+        Alert.alert(
+            'Log Out',
+            'Are you sure you want to log out',
+            [
+                { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                { text: 'OK', onPress: () => { Actions.reset('login'); } },
+            ],
+            { cancelable: false }
+        )
     }
 
     deleteOffer = (name) => {
-
-        let deletedOffer = this.state.offers.filter(function (el) {
-            return el.name != name
-        });
-        this.setState({ offers: deletedOffer })
-
+        Alert.alert(
+            'Delete Tourist Offer',
+            'Are you sure you want to delete ' + name + '?',
+            [
+                { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                {
+                    text: 'OK', onPress: () => {
+                        let deletedOffer = this.state.offers.filter(function (el) {
+                            return el.name != name
+                        });
+                        this.setState({ offers: deletedOffer });
+                    }
+                },
+            ],
+            { cancelable: false }
+        )
     }
 
     submitTrip = () => {
@@ -50,13 +68,13 @@ export default class Organizator extends React.Component {
                 let list = this.state.offers;
                 list.push(newTrip);
                 JSON.stringify(list, null, ' ');
-                this.setState({ offers: list, dashboard: 'list' });
+                this.setState({ offers: list, dashboard: 'list', img: '', name: '', desc: '', date: '', manager: '', price: '' });
             } else {
                 let newTrip = { img: this.state.Pimg, name: this.state.Pname, desc: this.state.Pdesc, date: this.state.Pdate, manager: this.state.Pmanager, price: this.state.Pprice };
                 let list = this.state.offers;
                 list.push(newTrip);
                 JSON.stringify(list, null, ' ');
-                this.setState({  offers: list, dashboard: 'list'  });
+                this.setState({ offers: list, dashboard: 'list', img: '', name: '', desc: '', date: '', manager: '', price: '' });
             }
 
         } else {
@@ -120,10 +138,10 @@ export default class Organizator extends React.Component {
                                         {this.listItems()}
                                     </ScrollView>
 
-                                   
-                                   <TouchableOpacity style={{zIndex: 3, position: 'absolute', bottom: 5, right: 15}} onPress={this.createTrip}>
-                                            <Image style={{ width: 60, height: 60 }} source={require('./ico/add.png')} />
-                                        </TouchableOpacity>
+
+                                    <TouchableOpacity style={{ zIndex: 3, position: 'absolute', bottom: 5, right: 15 }} onPress={this.createTrip}>
+                                        <Image style={{ width: 60, height: 60 }} source={require('./ico/add.png')} />
+                                    </TouchableOpacity>
 
                                 </View>
                             }
@@ -368,7 +386,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f08a5d',
         margin: 2,
     },
-    
+
     tabView: {
         width: '100%',
         height: 50,

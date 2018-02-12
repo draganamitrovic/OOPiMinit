@@ -29,21 +29,55 @@ export default class Admin extends React.Component {
     }
 
     logout() {
-        Actions.reset('login');
+        Alert.alert(
+            'Log Out',
+            'Are you sure you want to log out',
+            [
+                { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                { text: 'OK', onPress: () => { Actions.reset('login'); } },
+            ],
+            { cancelable: false }
+        )
     }
 
     deleteOffer = (name) => {
-        let deletedOffer = this.state.offers.filter(function (el) {
-            return el.name != name
-        });
-        this.setState({ offers: deletedOffer })
+        Alert.alert(
+            'Delete Tourist Offer',
+            'Are you sure you want to delete ' + name + '?',
+            [
+                { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                {
+                    text: 'OK', onPress: () => {
+                        let deletedOffer = this.state.offers.filter(function (el) {
+                            return el.name != name
+                        });
+                        this.setState({ offers: deletedOffer });
+                    }
+                },
+            ],
+            { cancelable: false }
+        )
     }
 
     deletedUser = (name) => {
-        let deletedUser = this.state.users.filter(function (el) {
-            return el.name != name
-        });
-        this.setState({ users: deletedUser })
+
+        Alert.alert(
+            'Delete User',
+            'Are you sure you want to delete ' + name + '?',
+            [
+                { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+                {
+                    text: 'OK', onPress: () => {
+                        let deletedUser = this.state.users.filter(function (el) {
+                            return el.name != name
+                        });
+                        this.setState({ users: deletedUser })
+                    }
+                },
+            ],
+            { cancelable: false }
+        )
+
     }
 
     createUser = () => {
@@ -57,13 +91,13 @@ export default class Admin extends React.Component {
                 let list = this.state.users;
                 list.push(newUser);
                 JSON.stringify(list, null, ' ');
-                this.setState({ users: list, dashboard: 'list' });
+                this.setState({ users: list, dashboard: 'list', img: '', name: '', address: '', username: '', password: '', type: '' });
             } else {
                 let newUser = { img: this.state.Uimg, name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'manager' };
                 let list = this.state.users;
                 list.push(newUser);
                 JSON.stringify(list, null, ' ');
-                this.setState({ users: list, dashboard: 'list' });
+                this.setState({ users: list, dashboard: 'list', img: '', name: '', address: '', username: '', password: '', type: '' });
             }
 
         } else {
@@ -256,7 +290,7 @@ export default class Admin extends React.Component {
                             </View>
                         </ScrollView>
 
-                        <TouchableOpacity style={{ bottom: 10, right: 10, zIndex: 3, position: 'absolute' }} onPress={() => {this.setState({dashboard: 'list'})}}>
+                        <TouchableOpacity style={{ bottom: 10, right: 10, zIndex: 3, position: 'absolute' }} onPress={() => { this.setState({ dashboard: 'list' }) }}>
                             <Image style={{ width: 50, height: 50 }} source={require('./ico/back.png')} />
                         </TouchableOpacity>
 

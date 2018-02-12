@@ -46,7 +46,15 @@ export default class Student extends React.Component {
   }
 
   logout() {
-    Actions.reset('login');
+    Alert.alert(
+      'Log Out',
+      'Are you sure you want to log out',
+      [
+        { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        { text: 'OK', onPress: () => { Actions.reset('login'); } },
+      ],
+      { cancelable: false }
+    )
   }
 
   profile = () => {
