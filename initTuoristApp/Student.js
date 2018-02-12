@@ -48,7 +48,7 @@ export default class Student extends React.Component {
   logout() {
     Alert.alert(
       'Log Out',
-      'Are you sure you want to log out',
+      'Are you sure you want to log out?',
       [
         { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
         { text: 'OK', onPress: () => { Actions.reset('login'); } },
@@ -97,7 +97,7 @@ export default class Student extends React.Component {
       this.setState({ destinationBooked: booked });
       Alert.alert('Trip booked successfully!')
     } else {
-      Alert.alert('You have allready booked this offer!')
+      Alert.alert('You have already booked this offer!')
     }
   }
 

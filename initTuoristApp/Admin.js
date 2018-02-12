@@ -31,7 +31,7 @@ export default class Admin extends React.Component {
     logout() {
         Alert.alert(
             'Log Out',
-            'Are you sure you want to log out',
+            'Are you sure you want to log out?',
             [
                 { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
                 { text: 'OK', onPress: () => { Actions.reset('login'); } },
@@ -42,8 +42,8 @@ export default class Admin extends React.Component {
 
     deleteOffer = (name) => {
         Alert.alert(
-            'Delete Tourist Offer',
-            'Are you sure you want to delete ' + name + '?',
+            'Remove Tourist Offer',
+            'Are you sure you want to remove ' + name + '?',
             [
                 { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
                 {
@@ -62,8 +62,8 @@ export default class Admin extends React.Component {
     deletedUser = (name) => {
 
         Alert.alert(
-            'Delete User',
-            'Are you sure you want to delete ' + name + '?',
+            'Remove User',
+            'Are you sure you want to remove ' + name + '?',
             [
                 { text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
                 {
@@ -91,13 +91,13 @@ export default class Admin extends React.Component {
                 let list = this.state.users;
                 list.push(newUser);
                 JSON.stringify(list, null, ' ');
-                this.setState({ users: list, dashboard: 'list', img: '', name: '', address: '', username: '', password: '', type: '' });
+                this.setState({ users: list, dashboard: 'list', Uimg: '', Uname: '', Uaddress: '', Uusername: '', Upassword: '', Utype: '' });
             } else {
                 let newUser = { img: this.state.Uimg, name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'manager' };
                 let list = this.state.users;
                 list.push(newUser);
                 JSON.stringify(list, null, ' ');
-                this.setState({ users: list, dashboard: 'list', img: '', name: '', address: '', username: '', password: '', type: '' });
+                this.setState({ users: list, dashboard: 'list',  Uimg: '', Uname: '', Uaddress: '', Uusername: '', Upassword: '', Utype: '' });
             }
 
         } else {
