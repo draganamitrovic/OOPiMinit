@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, StatusBar, ScrollView, Image, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-//import { Firebase } from './Firebase';
-//import { Dialog } from 'react-native-simple-dialogs';
 
 export default class Login extends React.Component {
 
@@ -79,7 +77,7 @@ export default class Login extends React.Component {
        </KeyboardAwareScrollView>
 
         <View style={styles.footerView}>
-          <Text style={styles.footer}>by Dragana Mitrovic</Text>
+          <Text style={styles.footer}>Copyright &copy; 2018 Dragana Mitrovic</Text>
         </View>
 
       </View>
@@ -130,7 +128,7 @@ const styles = StyleSheet.create({
   },
 
   footer: {
-    textAlign: 'right',
+    textAlign: 'center',
     color: '#1c2338',
     alignSelf: 'flex-end',
     width: '100%',

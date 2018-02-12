@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Alert, StyleSheet, Text, View, TouchableOpacity, TextInput, StatusBar, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+
 export default class Signup extends React.Component {
 
   state = {
@@ -27,13 +29,13 @@ export default class Signup extends React.Component {
           this.setState({ usernameExists: true })
         }
       };
-      
-//provera za isti username - ne radi
+
+      //provera za isti username - ne radi
       if (this.state.usernameExists) {
         Alert.alert('Username already exists.')
 
       } else {
-//nema username isti, kreiraj ga
+        //nema username isti, kreiraj ga
         if (this.state.Uimg == '') {
           let newUser = { img: 'http://www.cmcstir.org/wp-content/uploads/2013/07/img08.jpg', name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'student' };
           global.user.push(newUser);
@@ -67,9 +69,9 @@ export default class Signup extends React.Component {
         <View style={styles.formView}>
 
           <KeyboardAwareScrollView
-           scrollEnabled={true}
-           resetScrollToCoords={{ x: 0, y: 0 }} >
-           
+            scrollEnabled={true}
+            resetScrollToCoords={{ x: 0, y: 0 }} >
+
 
             <Text style={{ flex: 1, paddingBottom: 15, color: '#35446b', fontStyle: 'italic', textAlign: 'left', fontSize: 12 }}> All fields marked with an asterisk (*) are required.</Text>
 
@@ -126,7 +128,7 @@ export default class Signup extends React.Component {
         </View>
 
         <View style={styles.footerView}>
-          <Text style={styles.footer}>by Dragana Mitrovic</Text>
+          <Text style={styles.footer}>Copyright &copy; 2018 Dragana Mitrovic</Text>
         </View>
 
       </View>
@@ -200,7 +202,7 @@ const styles = StyleSheet.create({
   },
 
   footer: {
-    textAlign: 'right',
+    textAlign: 'center',
     color: '#1c2338',
     alignSelf: 'flex-end',
     width: '100%',

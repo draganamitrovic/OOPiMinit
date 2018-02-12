@@ -34,15 +34,12 @@ export default class Student extends React.Component {
   }
 
   componentWillMount() {
-    //save user detail to state
-    this.setState({ studentLoged: this.props.studentName, users: global.user, Uname: this.props.studentName.name, Uusername: this.props.studentName.username, Uimg: this.props.studentName.img, Upassword: this.props.studentName.password, Uaddress: this.props.studentName.address });
+    this.setState({ destinationBooked: global.booked, studentLoged: this.props.studentName, users: global.user, Uname: this.props.studentName.name, Uusername: this.props.studentName.username, Uimg: this.props.studentName.img, Upassword: this.props.studentName.password, Uaddress: this.props.studentName.address });
   }
 
-  //ne cuva se book za usera
-
   componentWillUnmount() {
-    //   global.booked = [];
-    //   global.booked = this.state.book;
+    global.booked = [];
+    global.booked = this.state.destinationBooked;
 
     global.user = [];
     global.user = this.state.users;
@@ -53,19 +50,7 @@ export default class Student extends React.Component {
   }
 
   profile = () => {
-    //pass user details to profile page from login
     this.setState({ dashboard: 'user' })
-  }
-
-  book = () => {
-    //alert and strpaj u niz
-    // let newUser = { img: this.state.Uimg, name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'manager' };
-    // let list = this.state.users;
-    // list.push(newUser);
-    // JSON.stringify(list, null, ' ');
-    // this.setState({ users: list });
-
-    Alert.alert('Trip booked successfully!')
   }
 
   back = () => {
@@ -73,18 +58,6 @@ export default class Student extends React.Component {
   }
 
   submitUser = () => {
-    //  //obrisi ga 
-    //      let deletedUser = this.state.users.filter(function (el) {
-    //        return (el.username != this.state.studentLoged.username)
-    //      });
-    //  //dodaj ga
-    //      let newUser = { img: this.state.Uimg, name: this.state.Uname, address: this.state.Uaddress, username: this.state.Uusername, password: this.state.Upassword, type: 'manager' };
-    //      deletedUser.push(newUser);
-    //      JSON.stringify(deletedUser, null, ' ');
-    //      this.setState({ users: deletedUser, studentLoged: newUser });
-
-    // this.setState({ Uname: this.state.studentLoged.name, Uusername: this.state.studentLoged.username, Uimg: this.state.studentLoged.img, Upassword: this.state.studentLoged.password, Uaddress: this.state.Uaddress });
-    //  
     this.setState({ dashboard: 'list' });
   }
 
@@ -164,8 +137,8 @@ export default class Student extends React.Component {
                     {this.listItems()}
                   </ScrollView>
                 </View>
-
               }
+
               {this.state.selectedTab == 'booked' &&
                 <View style={{ flex: 1, width: '100%', height: '100%', margin: 7 }}>
                   <Text style={styles.listTitle}>List of Booked Tourist Offers:</Text>
@@ -192,6 +165,7 @@ export default class Student extends React.Component {
             </View>
           </View>
         }
+
         {this.state.dashboard == 'info' &&
           <View style={styles.body}>
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ width: '100%', alignItems: 'center' }} >
@@ -240,6 +214,7 @@ export default class Student extends React.Component {
 
           </View>
         }
+
         {this.state.dashboard == 'user' &&
           <View style={styles.body}>
             <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ width: Dimensions.get('window').width, alignItems: 'flex-start' }} >
@@ -444,33 +419,6 @@ const styles = StyleSheet.create({
     paddingBottom: 10
   },
 
-  createnew: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#fdf3ee',
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end',
-    margin: 15
-  },
-
-  createnewtext: {
-    color: 'white',
-    textAlign: 'center',
-    paddingBottom: 3,
-    paddingLeft: 2,
-    fontSize: 14,
-    fontWeight: 'bold'
-  },
-
-  newbtn: {
-    alignItems: 'flex-end',
-    paddingRight: 10,
-    width: '100%',
-    height: 70,
-    backgroundColor: '#fdf3ee',
-    justifyContent: 'flex-end'
-  },
-
   input: {
     width: Dimensions.get('window').width,
     height: 45,
@@ -547,13 +495,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#f08a5d',
     margin: 2,
-},
-tabView: {
+  },
+  tabView: {
     width: '100%',
     height: 50,
     flexDirection: 'row',
     flex: 1.5,
     backgroundColor: '#fdf3ee'
-},
+  },
 
 })

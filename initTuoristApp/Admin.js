@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Alert, Dimensions, View, StyleSheet, Text, TouchableOpacity, ScrollView, Image, TextInput } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import TabNavigator from 'react-native-tab-navigator';
 
 export default class Admin extends React.Component {
 
@@ -48,7 +47,6 @@ export default class Admin extends React.Component {
     }
 
     createUser = () => {
-        //create user using states
         this.setState({ dashboard: 'user' });
     }
 
@@ -161,11 +159,11 @@ export default class Admin extends React.Component {
                                         {this.listmanagers()}
                                     </ScrollView>
 
-                                    
-                                        <TouchableOpacity style={{zIndex: 3, position: 'absolute', bottom: 5, right: 15}} onPress={this.createUser}>
-                                            <Image style={{ width: 60, height: 60 }} source={require('./ico/add.png')} />
-                                        </TouchableOpacity>
-                                
+
+                                    <TouchableOpacity style={{ zIndex: 3, position: 'absolute', bottom: 5, right: 15 }} onPress={this.createUser}>
+                                        <Image style={{ width: 60, height: 60 }} source={require('./ico/add.png')} />
+                                    </TouchableOpacity>
+
                                 </View>
                             }
 
@@ -257,6 +255,11 @@ export default class Admin extends React.Component {
 
                             </View>
                         </ScrollView>
+
+                        <TouchableOpacity style={{ bottom: 10, right: 10, zIndex: 3, position: 'absolute' }} onPress={() => {this.setState({dashboard: 'list'})}}>
+                            <Image style={{ width: 50, height: 50 }} source={require('./ico/back.png')} />
+                        </TouchableOpacity>
+
                     </View>
 
                 }
@@ -372,33 +375,6 @@ const styles = StyleSheet.create({
         color: '#35446b',
         fontWeight: 'bold',
         paddingBottom: 10
-    },
-
-    createnew: {
-        width: '100%',
-        height: 62,
-        backgroundColor: '#fdf3ee',
-        alignItems: 'flex-end',
-        justifyContent: 'flex-end',
-        margin: 15
-    },
-
-    createnewtext: {
-        color: 'white',
-        textAlign: 'center',
-        paddingBottom: 3,
-        paddingLeft: 2,
-        fontSize: 14,
-        fontWeight: 'bold'
-    },
-
-    newbtn: {
-        alignItems: 'flex-end',
-        paddingRight: 10,
-        width: '100%',
-        height: 80,
-        backgroundColor: '#fdf3ee',
-        justifyContent: 'flex-end'
     },
 
     tab: {

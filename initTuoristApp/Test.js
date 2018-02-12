@@ -12,7 +12,7 @@ export default class Test extends React.Component {
     }
 
     componentWillMount() {
-        this.setState({name: this.props.name, address: this.props.address, username: this.props.username, password: this.state.password})
+        this.setState({ name: this.props.name, address: this.props.address, username: this.props.username, password: this.state.password })
     }
 
     render() {
@@ -32,8 +32,8 @@ export default class Test extends React.Component {
 
                 <View style={styles.body}>
                     <View style={{ flex: 2, width: '100%', justifyContent: 'flex-start', alignItems: 'center' }}>
-                        <Text style={{padding: 10, color: '#928A97', fontWeight: 'bold', }}></Text>
-                        <TextInput style={{width: '100%'}}
+                        <Text style={{ padding: 10, color: '#928A97', fontWeight: 'bold', }}></Text>
+                        <TextInput style={{ width: '100%' }}
                             underlineColorAndroid='rgba(0,0,0,0)'
                             placeholder={this.state.name}
                             placeholderTextColor="#928A97"

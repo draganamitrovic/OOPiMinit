@@ -65,7 +65,6 @@ export default class Organizator extends React.Component {
     }
 
     createTrip = () => {
-        // Actions.trip();
         this.setState({ dashboard: 'offer' });
     }
 
@@ -360,33 +359,6 @@ const styles = StyleSheet.create({
         paddingBottom: 10
     },
 
-    createnew: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#fdf3ee',
-        alignItems: 'flex-end',
-        justifyContent: 'flex-end',
-        margin: 15
-    },
-
-    createnewtext: {
-        color: 'white',
-        textAlign: 'center',
-        paddingBottom: 3,
-        paddingLeft: 2,
-        fontSize: 14,
-        fontWeight: 'bold'
-    },
-
-    newbtn: {
-        alignItems: 'flex-end',
-        paddingRight: 10,
-        width: '100%',
-        height: 70,
-        backgroundColor: '#fdf3ee',
-        justifyContent: 'flex-end'
-    },
-
     tab: {
         flex: 1,
         width: '100%',
@@ -396,6 +368,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f08a5d',
         margin: 2,
     },
+    
     tabView: {
         width: '100%',
         height: 50,
